@@ -1,0 +1,168 @@
+{
+  "enrollments/{enrollment}/visits": [
+    "get",
+    "post"
+  ],
+  "openapi.json": [
+    "get"
+  ],
+  "patient/addresses": [
+    "get",
+    "post"
+  ],
+  "patient/addresses/{address}": [
+    "put",
+    "delete"
+  ],
+  "patient/auth/magic-link": [
+    "post"
+  ],
+  "patient/auth/magic-link/send-email": [
+    "post"
+  ],
+  "patient/auth/magic-link/verify": [
+    "post"
+  ],
+  "patient/auth/send-otp": [
+    "post"
+  ],
+  "patient/auth/verify": [
+    "post"
+  ],
+  "patient/coupons": [
+    "post"
+  ],
+  "patient/coupons/validate": [
+    "post"
+  ],
+  "patient/logout": [
+    "post"
+  ],
+  "patient/profile": [
+    "get",
+    "patch"
+  ],
+  "patient/vitals": [
+    "get",
+    "post"
+  ],
+  "patient/vitals/latest": [
+    "get"
+  ],
+  "patient/vitals/trends": [
+    "get"
+  ],
+  "patient/vitals/{id}": [
+    "patch"
+  ],
+  "payments/authorization-intent": [
+    "post"
+  ],
+  "payments/authorization-return": [
+    "post"
+  ],
+  "payments/cancel-checkout": [
+    "post"
+  ],
+  "payments/enrollments/{enrollment}/recovery": [
+    "post"
+  ],
+  "payments/enrollments/{enrollment}/renewal": [
+    "post"
+  ],
+  "payments/enrollments/{uuid}/method": [
+    "patch"
+  ],
+  "payments/history": [
+    "get"
+  ],
+  "payments/methods": [
+    "get"
+  ],
+  "payments/methods/{id}": [
+    "delete"
+  ],
+  "payments/methods/{id}/default": [
+    "post"
+  ],
+  "payments/quote": [
+    "post"
+  ],
+  "payments/save-method": [
+    "post"
+  ],
+  "payments/setup-intent": [
+    "post"
+  ],
+  "payments/store-credits": [
+    "get",
+    "put"
+  ],
+  "payments/store-credits/intents/{intentId}": [
+    "delete"
+  ],
+  "plans": [
+    "get"
+  ],
+  "plans/{slug}": [
+    "get"
+  ],
+  "plans/{slug}/enrollments": [
+    "post"
+  ],
+  "plans/{slug}/preferred-drugs": [
+    "post"
+  ],
+  "portal/dashboard": [
+    "get"
+  ],
+  "portal/enrollments": [
+    "get"
+  ],
+  "portal/enrollments/{uuid}": [
+    "get"
+  ],
+  "portal/enrollments/{uuid}/refill-forms": [
+    "get"
+  ],
+  "portal/enrollments/{uuid}/refills": [
+    "post"
+  ],
+  "portal/enrollments/{uuid}/sync": [
+    "post"
+  ],
+  "portal/plans": [
+    "get"
+  ],
+  "portal/prescriptions": [
+    "get"
+  ],
+  "portal/refills": [
+    "get"
+  ],
+  "portal/tickets": [
+    "get",
+    "post"
+  ],
+  "portal/tickets/options": [
+    "get"
+  ],
+  "portal/tickets/{ticket}": [
+    "get"
+  ],
+  "portal/tickets/{ticket}/attachments/{attachment}": [
+    "get"
+  ],
+  "portal/tickets/{ticket}/close": [
+    "post"
+  ],
+  "portal/tickets/{ticket}/messages": [
+    "post"
+  ],
+  "portal/tickets/{ticket}/rating": [
+    "post"
+  ],
+  "portal/tickets/{ticket}/reopen": [
+    "post"
+  ]
+}

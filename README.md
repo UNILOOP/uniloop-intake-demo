@@ -689,3 +689,64 @@ For commercial licensing, please contact the maintainers.
 
 This project is licensed under the [Creative Commons Attribution-NonCommercial 4.0 International License](https://creativecommons.org/licenses/by-nc/4.0/). You may use the code for open source or other non-commercial purposes. For commercial use or projects where you will charge end users, please contact the maintainers to obtain a commercial license.
 
+
+## Uniloop EMR enrollment workspace
+
+Open `/emr-demo` (also available at `/emr-builder-demo`). Enter a Uniloop
+merchant bearer token and set the **Uniloop base URL** to your merchant domain and click **Save connection & load plans**. The token remains
+visible and is stored as `uniloop_emr_demo_token` in local storage. Returning to
+this page reloads the plans; changing or clearing that storage value in another
+tab updates the session. Use **Clear token** to disconnect.
+
+Set `UNILOOP_API_URL` in `.env.local` to your Uniloop origin, for example
+`http://127.0.0.1:8000`. The server calls `/api/v1/merchant` at this origin.
+`LARAVEL_API_URL` is also supported; the existing default is `https://my.ivyrx.com`.
+The merchant token needs `enrollment:read` for treatment plan loading. It is never
+used for EMR enrollment utility actions. OTP send/verification uses the native
+`/api/v2/patient` endpoints on the configured merchant domain. After authentication,
+the patient JWT is sent in `Authorization: Bearer <patient-token>` for profile,
+vitals, coupons, billing and Stripe calls, preserving the hosted utilities’ URLs
+and HTTP methods. No Stripe secret is required locally.
+
+Each enrollment form returned by the treatment plan is listed in sequence.
+Choose a form and use **Edit in SurveyFormBuilder**, then **Render form** to run
+the edited schema. Edits are held in memory and never update the merchant's
+published forms. The last form submits the enrollment through Uniloop after
+required forms are answered. These are real API operations against the configured
+account. Refill intakes are outside this demo's current scope.
+
+Custom blocks receive the same shared session across all forms:
+
+```tsx
+const { customData } = useSurveyForm();
+const utils = customData.emrEnrollmentUtils;
+// Also supplied: enrollmentForms, currentEnrollmentForm,
+// completedFormResponses, and the legacy enrollmentModule adapter.
+```
+
+Add local block definitions in `src/app/emr-demo/custom-blocks/index.ts`.
+Local block types take precedence over merchant-published blocks of the same
+type. Other published ESM blocks, layouts and merchant CSS are loaded from their
+plan URLs; their CDN must allow browser imports from your local origin.
+
+Run the transport and API proxy tests with `bun run test:emr`, and check the
+EMR workspace and its dependency graph with `bun run typecheck:emr`. The full
+project type check currently also includes copied patient-portal helpers that
+require Uniloop’s Inertia environment; those helpers are not imported by this
+workspace.
+
+The base URL is saved as `uniloop_emr_demo_base_url`. Leave it blank to use the
+server environment configuration. The browser always calls the local proxy;
+the connection panel shows the actual upstream origin. HTTPS merchant custom
+domains and HTTP loopback development origins are supported.
+
+Patient requests are forwarded through `/api/uniloop-patient`, while treatment
+plan requests use `/api/uniloop`. The shared `emrEnrollmentUtils` instance supplies
+the authenticated patient token; no merchant token is attached to patient calls.
+Pending profile edits remain queued when saving fails.
+
+The current Uniloop web routes `/emr/enroll/{slug}` and its `preferred-drugs`
+action are preserved too. Unlike the native patient API routes, those web routes
+currently require a hosted session/CSRF token. If Uniloop returns 419, the demo
+reports that the backend needs patient bearer support for that action. The demo
+does not substitute the merchant-scoped API or bypass CSRF protection.

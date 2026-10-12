@@ -193,7 +193,7 @@ const NameInformationRenderer = React.forwardRef<
   const [hasSkippedOnce, setHasSkippedOnce] = useState(false);
 
   // Get enrollment module from customData
-  const enrollmentModule = customData?.enrollmentModule;
+  const enrollmentModule = (customData?.emrEnrollmentUtils ?? customData?.enrollmentModule);
 
   // Use enrollment module's default storage key
   const storageKey = enrollmentModule?.getPatientAuthStorageKey();
@@ -313,7 +313,7 @@ const NameInformationRenderer = React.forwardRef<
         Let's start with some basic information.
       </h2>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div className="flex flex-col gap-2">
           <Label
             htmlFor={`${block.fieldName}-firstName`}

@@ -135,7 +135,7 @@ const SelectionCard = React.memo(
         htmlFor={`${block.fieldName}-${optionValue}`}
         className={cn(
           "relative",
-          !!icon
+          icon
             ? "flex flex-col items-center justify-center gap-6 md:gap-10"
             : "flex justify-between gap-6 items-center",
           themeConfig.field.input,
@@ -158,7 +158,7 @@ const SelectionCard = React.memo(
         <p
           className={cn(
             themeConfig.field.label,
-            !!icon ? "w-fit" : "max-w-2/3",
+            icon ? "w-fit" : "max-w-2/3",
             "text-center"
           )}
           style={{ color: isSelected ? themeConfig.colors.primary : "" }}
@@ -169,7 +169,7 @@ const SelectionCard = React.memo(
         <div
           className={cn(
             "flex h-6 w-6 items-center justify-center rounded-full border bg-white",
-            !!icon ? "absolute right-4 top-6" : "relative"
+            icon ? "absolute right-4 top-6" : "relative"
           )}
           style={{
             borderColor: isSelected
@@ -301,7 +301,7 @@ const GenderInformationRenderer = forwardRef<HTMLDivElement, any>(
     const [isUpdating, setIsUpdating] = useState(false);
 
     // Get enrollment module from customData
-    const enrollmentModule = customData?.enrollmentModule;
+    const enrollmentModule = (customData?.emrEnrollmentUtils ?? customData?.enrollmentModule);
 
     // Use enrollment module's default storage key
     const storageKey = enrollmentModule?.getPatientAuthStorageKey();

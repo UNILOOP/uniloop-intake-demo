@@ -6,7 +6,9 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test:emr": "bun test tests/emr-demo.test.js",
+    "typecheck:emr": "tsc --project tsconfig.emr.json --noEmit"
   },
   "workspaces": [
     "src/packages/*"

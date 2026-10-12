@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import type { EmrEnrollmentUtils, EmrPreferredDrugSelection } from '@/lib/emr-enrollment-utils';
 import { Alert, AlertDescription } from '@/packages/survey-form-package/src/components/ui/alert';
 import { Badge } from '@/packages/survey-form-package/src/components/ui/badge';
 import { Card, CardContent } from '@/packages/survey-form-package/src/components/ui/card';
@@ -11,7 +12,7 @@ import { useSurveyForm } from '@/packages/survey-form-package/src/context/Survey
 import { cn } from '@/packages/survey-form-package/src/lib/utils';
 import { themes } from '@/packages/survey-form-package/src/themes';
 import type { BlockDefinition, BlockRendererProps, ContentBlockItemProps } from '@/packages/survey-form-package/src/types';
-import { AlertCircle, Check, CheckCircle2, Package, Pill, Plus, Shield, Sparkles } from 'lucide-react';
+import { AlertCircle, Check, CheckCircle2, Pill, Plus, Shield, Sparkles } from 'lucide-react';
 import React, { forwardRef, useCallback, useEffect, useRef, useState } from 'react';
 
 type EnrollmentModule = any;
@@ -404,9 +405,10 @@ const PhaseChooser: React.FC<{
 
             {activePhases.map((phase: any) => {
                 const isSelected = selectedPhaseId === phase.id;
-                const phaseAddOn = addOnPricing && phase.add_on_price != null && Number(phase.add_on_price) > 0
-                    ? Number(phase.add_on_price) * addOnPricing.bundleSize
-                    : 0;
+                const phaseAddOn =
+                    addOnPricing && phase.add_on_price != null && Number(phase.add_on_price) > 0
+                        ? Number(phase.add_on_price) * addOnPricing.bundleSize
+                        : 0;
 
                 return (
                     <label
@@ -796,7 +798,19 @@ const SingleGroupSelectionCard: React.FC<{
     showPhases: boolean;
     disabled?: boolean;
     addOnPricing?: { currency: string; bundleSize: number } | null;
-}> = ({ group, selectedDrug, selectedPhaseId, onSelectDrug, onPhaseChange, primaryColor, showImages, showDetails, showPhases, disabled = false, addOnPricing }) => {
+}> = ({
+    group,
+    selectedDrug,
+    selectedPhaseId,
+    onSelectDrug,
+    onPhaseChange,
+    primaryColor,
+    showImages,
+    showDetails,
+    showPhases,
+    disabled = false,
+    addOnPricing,
+}) => {
     const [openPanel, setOpenPanel] = useState<'drug' | 'phase' | null>(null);
     const fallbackDrug = group.drugs.find((drug: any) => drug.is_default_option) ?? group.drugs[0] ?? null;
     const visibleDrug = selectedDrug ?? fallbackDrug;
@@ -838,9 +852,11 @@ const SingleGroupSelectionCard: React.FC<{
                 )
             }
             aside={
-                addOn > 0 ? <Badge variant="outline" className="rounded-full px-3 py-1 text-xs font-semibold">
-                    +{formatCurrency(addOn)}
-                </Badge> : null
+                addOn > 0 ? (
+                    <Badge variant="outline" className="rounded-full px-3 py-1 text-xs font-semibold">
+                        +{formatCurrency(addOn)}
+                    </Badge>
+                ) : null
             }
             actions={
                 <>
@@ -995,139 +1011,54 @@ const MultiGroupSelectedDrugCard: React.FC<{
 };
 
 const VariantSelector: React.FC<{
-    variants: any[];
     selectedId: string | null;
-    onSelect: (id: string) => void;
-    enrollmentModule: EnrollmentModule;
+    onSelect: (variantId: string, billingOptionId: number | null) => void;
+    enrollmentModule: any;
     primaryColor: string;
     currency: string;
     disabled?: boolean;
-}> = ({ variants, selectedId, onSelect, enrollmentModule, primaryColor, currency, disabled = false }) => {
-    if (variants.length === 0) {
-        return (
-            <Alert>
-                <AlertCircle className="h-4 w-4" />
-                <AlertDescription>No active refill variants are available for this treatment yet.</AlertDescription>
-            </Alert>
-        );
-    }
-
-    if (variants.length === 1) {
-        const variant = variants[0];
-        const variantLabel = enrollmentModule.getVariantLabel(variant);
-        const compareAt = Number(variant.compare_at_price) || 0;
-        const price = Number(variant.price ?? variant.calculated_price ?? 0) || 0;
-
-        return (
-            <Card className="border-border bg-card overflow-hidden">
-                <CardContent className="space-y-4 p-5">
-                    <SectionHeader
-                        icon={Package}
-                        title="Your plan"
-                        description="This treatment has one active plan option, so you can focus on the medication choices below."
-                        primaryColor={primaryColor}
-                        badge={
-                            <Badge
-                                className="rounded-full border-0 px-3 py-1 text-[11px] font-semibold"
-                                style={{
-                                    backgroundColor: withAlpha(primaryColor, 0.12),
-                                    color: primaryColor,
-                                }}
-                            >
-                                Included
-                            </Badge>
-                        }
-                    />
-
-                    <div className="rounded-3xl border p-4" style={getSoftCardStyle(primaryColor)}>
-                        <div className="flex items-start justify-between gap-4">
-                            <div className="space-y-1">
-                                <p className="text-foreground text-base font-semibold">{variant.name || variantLabel}</p>
-                                <p className="text-muted-foreground text-sm">{variantLabel}</p>
-                            </div>
-                            <div className="text-right">
-                                {compareAt > price ? (
-                                    <p className="text-muted-foreground text-xs line-through">{formatCurrency(compareAt, currency)}</p>
-                                ) : null}
-                                <p className="text-2xl font-semibold" style={{ color: primaryColor }}>
-                                    {formatCurrency(price, currency)}
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </CardContent>
-            </Card>
-        );
-    }
-
+}> = ({ selectedId, onSelect, enrollmentModule, currency, disabled = false }) => {
+    const choices = enrollmentModule.getEmrBillingChoices();
+    const billingOptionId = enrollmentModule.getSelectedEmrBillingOptionId();
+    const selected = choices.find((choice: any) => choice.variantId === selectedId && choice.billingOptionId === billingOptionId);
     return (
-        <Card className="border-border bg-card overflow-hidden">
+        <Card>
             <CardContent className="space-y-4 p-5">
-                <SectionHeader
-                    icon={Package}
-                    title="Choose your plan"
-                    description="Start with the plan cadence that feels best, then review the medications underneath."
-                    primaryColor={primaryColor}
-                />
-
-                <RadioGroup value={selectedId ?? ''} onValueChange={onSelect} className="space-y-3" disabled={disabled}>
-                    {variants.map((variant: any) => {
-                        const isSelected = selectedId === variant.id;
-                        const variantLabel = enrollmentModule.getVariantLabel(variant);
-                        const price = Number(variant.price ?? variant.calculated_price ?? 0) || 0;
-                        const compareAt = Number(variant.compare_at_price) || 0;
-                        const savings = compareAt > price ? compareAt - price : 0;
-
-                        return (
-                            <label
-                                key={variant.id}
-                                className={cn(
-                                    'bg-card flex cursor-pointer gap-3 rounded-3xl border p-4 transition-all duration-200',
-                                    !disabled && 'hover:-translate-y-0.5 hover:shadow-lg',
-                                    disabled && 'cursor-not-allowed opacity-60',
-                                )}
-                                style={isSelected ? getSelectedCardStyle(primaryColor) : undefined}
-                            >
-                                <RadioGroupItem value={variant.id} className="mt-1 shrink-0" disabled={disabled} />
-                                <div className="flex min-w-0 flex-1 items-start justify-between gap-4">
-                                    <div className="min-w-0 space-y-2">
-                                        <div className="space-y-1">
-                                            <div className="flex flex-wrap items-center gap-2">
-                                                <p className="text-foreground text-base font-semibold">{variant.name || variantLabel}</p>
-                                                {variant.is_default ? (
-                                                    <Badge
-                                                        className="rounded-full border-0 px-2.5 py-1 text-[10px] font-semibold"
-                                                        style={{
-                                                            backgroundColor: withAlpha(primaryColor, 0.12),
-                                                            color: primaryColor,
-                                                        }}
-                                                    >
-                                                        <Sparkles className="mr-1 size-3" />
-                                                        Recommended
-                                                    </Badge>
-                                                ) : null}
-                                            </div>
-                                            <p className="text-muted-foreground text-sm">{variantLabel}</p>
-                                        </div>
-
-                                        {savings > 0 ? (
-                                            <p className="text-xs font-medium" style={{ color: primaryColor }}>
-                                                Save {formatCurrency(savings, currency)} on this cadence
-                                            </p>
-                                        ) : null}
-                                    </div>
-
-                                    <div className="shrink-0 text-right">
-                                        {compareAt > price ? (
-                                            <p className="text-muted-foreground text-xs line-through">{formatCurrency(compareAt, currency)}</p>
-                                        ) : null}
-                                        <p className="text-foreground text-2xl font-semibold">{formatCurrency(price, currency)}</p>
-                                    </div>
-                                </div>
+                <div>
+                    <h3 className="text-lg font-semibold">Choose your plan</h3>
+                    <p className="text-muted-foreground text-sm">
+                        Choose pay per refill or prepay for several supplies. Your clinical schedule follows the selected variant.
+                    </p>
+                </div>
+                {!choices.length ? (
+                    <Alert>
+                        <AlertDescription>No purchase options are available for this treatment.</AlertDescription>
+                    </Alert>
+                ) : (
+                    <RadioGroup
+                        value={selected?.key ?? ''}
+                        onValueChange={(key) => {
+                            const choice = choices.find((item: any) => item.key === key);
+                            if (choice) onSelect(choice.variantId, choice.billingOptionId);
+                        }}
+                        disabled={disabled}
+                    >
+                        {choices.map((choice: any) => (
+                            <label key={choice.key} className="flex cursor-pointer items-start gap-3 rounded-lg border p-4">
+                                <RadioGroupItem value={choice.key} disabled={disabled} />
+                                <span className="flex-1">
+                                    <span className="block font-semibold">{choice.label}</span>
+                                    <span className="text-muted-foreground text-sm">
+                                        {choice.billingOptionId
+                                            ? `${choice.supplyCount} supplies · ${enrollmentModule.getVariantLabel(choice.variant)}`
+                                            : 'Pay per refill'}
+                                    </span>
+                                </span>
+                                <span className="font-semibold">{formatCurrency(choice.price, currency)}</span>
                             </label>
-                        );
-                    })}
-                </RadioGroup>
+                        ))}
+                    </RadioGroup>
+                )}
             </CardContent>
         </Card>
     );
@@ -1144,7 +1075,12 @@ const PricingSummary: React.FC<{
         return null;
     }
 
-    const variantPrice = Number(state.variant?.price ?? state.variant?.calculated_price ?? 0) || 0;
+    const billingChoice = enrollmentModule
+        .getEmrBillingChoices(state.variantId)
+        .find((choice: any) => choice.billingOptionId === state.billingOptionId);
+    const prepaid = billingChoice?.billingOptionId != null;
+    const displayedTotal = prepaid ? billingChoice.price : state.total;
+    const variantPrice = prepaid ? billingChoice.price : Number(state.variant?.price ?? state.variant?.calculated_price ?? 0) || 0;
     const pricingBundleSize = Math.max(1, state.variant?.default_dispense_bundle_size ?? 1);
     const optionalDrugs = enrollmentModule.getOptionalDrugs().filter((drug: any) => enrollmentModule.isOptionalDrugSelected(drug.id));
 
@@ -1165,14 +1101,18 @@ const PricingSummary: React.FC<{
                     </div>
 
                     <div className="text-left sm:text-right">
-                        {state.compareAtPrice != null && Number(state.compareAtPrice) > state.total ? (
+                        {!prepaid && state.compareAtPrice != null && Number(state.compareAtPrice) > state.total ? (
                             <p className="text-muted-foreground text-sm line-through">{formatCurrency(state.compareAtPrice, currency)}</p>
                         ) : null}
                         <p className="text-3xl font-semibold" style={{ color: primaryColor }}>
-                            {formatCurrency(state.total, currency)}
+                            {formatCurrency(displayedTotal, currency)}
                         </p>
                         {state.scheduleLabel ? (
-                            <p className="text-muted-foreground text-xs">Billed {String(state.scheduleLabel).toLowerCase()}</p>
+                            <p className="text-muted-foreground text-xs">
+                                {prepaid
+                                    ? `Base price for ${billingChoice.supplyCount} supplies · confirmed at checkout`
+                                    : `Billed ${String(state.scheduleLabel).toLowerCase()}`}
+                            </p>
                         ) : null}
                     </div>
                 </div>
@@ -1182,13 +1122,13 @@ const PricingSummary: React.FC<{
                 <div className="space-y-3">
                     <div className="flex items-center justify-between gap-3 text-sm">
                         <div>
-                            <p className="text-foreground font-medium">{state.variant?.name ?? 'Selected plan'}</p>
+                            <p className="text-foreground font-medium">{prepaid ? billingChoice.label : (state.variant?.name ?? 'Selected plan')}</p>
                             <p className="text-muted-foreground text-xs">Includes all core prescribed medications</p>
                         </div>
                         <p className="text-foreground font-semibold">{formatCurrency(variantPrice, currency)}</p>
                     </div>
 
-                    {state.addOnTotal > 0 ? (
+                    {!prepaid && state.addOnTotal > 0 ? (
                         <div className="flex items-center justify-between gap-3 text-sm">
                             <div>
                                 <p className="text-foreground font-medium">Drug selection add-ons</p>
@@ -1198,15 +1138,18 @@ const PricingSummary: React.FC<{
                         </div>
                     ) : null}
 
-                    {optionalDrugs.map((drug: any) => (
-                        <div key={drug.id} className="flex items-center justify-between gap-3 text-sm">
-                            <div>
-                                <p className="text-foreground font-medium">{drug.drug_name}</p>
-                                <p className="text-muted-foreground text-xs">Optional add-on</p>
+                    {!prepaid &&
+                        optionalDrugs.map((drug: any) => (
+                            <div key={drug.id} className="flex items-center justify-between gap-3 text-sm">
+                                <div>
+                                    <p className="text-foreground font-medium">{drug.drug_name}</p>
+                                    <p className="text-muted-foreground text-xs">Optional add-on</p>
+                                </div>
+                                <p className="text-foreground font-semibold">
+                                    +{formatCurrency(enrollmentModule.getDrugPrice(drug) * pricingBundleSize, currency)}
+                                </p>
                             </div>
-                            <p className="text-foreground font-semibold">+{formatCurrency(enrollmentModule.getDrugPrice(drug) * pricingBundleSize, currency)}</p>
-                        </div>
-                    ))}
+                        ))}
                 </div>
 
                 <div className="flex flex-wrap gap-2 pt-1">
@@ -1274,7 +1217,7 @@ const EmrDrugSelectionBlockPreview: React.FC = () => {
 
 const EmrDrugSelectionRenderer = forwardRef<HTMLDivElement, BlockRendererProps>(({ block, onChange, error, disabled, theme }, ref) => {
     const { customData } = useSurveyForm();
-    const enrollmentModule = customData?.enrollmentModule as EnrollmentModule | undefined;
+    const enrollmentModule = (customData?.emrEnrollmentUtils ?? customData?.enrollmentModule) as EnrollmentModule | undefined;
 
     const themeConfig = theme ?? themes.default;
     const primaryColor = themeConfig.colors.primary || '#10b981';
@@ -1286,6 +1229,8 @@ const EmrDrugSelectionRenderer = forwardRef<HTMLDivElement, BlockRendererProps>(
     const isEmr = Boolean(enrollmentModule?.isEmr);
 
     const [renderKey, setRenderKey] = useState(0);
+    const [recommendation, setRecommendation] = useState<{ loading: boolean; message: string | null }>({ loading: false, message: null });
+    const manualChoiceVersion = useRef(0);
     const onChangeRef = useRef(onChange);
     onChangeRef.current = onChange;
 
@@ -1305,6 +1250,7 @@ const EmrDrugSelectionRenderer = forwardRef<HTMLDivElement, BlockRendererProps>(
         const optionalDrugs = enrollmentModule.getOptionalDrugs();
 
         const outputValue = {
+            billingOptionId: state.billingOptionId,
             variantId: state.variantId,
             variantName: state.variant?.name ?? null,
             variantPrice: Number(state.variant?.price ?? state.variant?.calculated_price ?? 0) || 0,
@@ -1356,6 +1302,7 @@ const EmrDrugSelectionRenderer = forwardRef<HTMLDivElement, BlockRendererProps>(
 
     const update = useCallback(
         (callback: () => void) => {
+            manualChoiceVersion.current++;
             callback();
             setRenderKey((value) => value + 1);
             queueMicrotask(() => emitOutputValue());
@@ -1378,7 +1325,14 @@ const EmrDrugSelectionRenderer = forwardRef<HTMLDivElement, BlockRendererProps>(
     const bundleSize = Math.max(1, state?.variant?.default_dispense_bundle_size ?? 1);
     const selectedOptionalCount = state?.drugSelection?.selectedOptionalDrugIds?.length ?? 0;
     const selectedMedicationCount = state?.selectedDrugs?.length ?? standaloneDrugs.length;
-    const selectedPlanLabel = state?.scheduleLabel ?? (variants.length === 1 ? enrollmentModule?.getVariantLabel(variants[0]) : 'Choose a plan');
+    const selectedBillingChoice = state
+        ? enrollmentModule.getEmrBillingChoices(state.variantId).find((choice: any) => choice.billingOptionId === state.billingOptionId)
+        : null;
+    const displayedTotal = selectedBillingChoice?.billingOptionId != null ? selectedBillingChoice.price : (state?.total ?? 0);
+    const selectedPlanLabel =
+        selectedBillingChoice?.billingOptionId != null
+            ? selectedBillingChoice.label
+            : (state?.scheduleLabel ?? (variants.length === 1 ? enrollmentModule?.getVariantLabel(variants[0]) : 'Choose a plan'));
     const heroTitle = treatment?.name ? `Build your ${treatment.name} plan` : 'Build your treatment plan';
     const heroDescription = merchant?.name
         ? `Provider-reviewed options from ${merchant.name}. Review the plan, confirm the selected medications, and adjust dosage only where needed.`
@@ -1424,6 +1378,51 @@ const EmrDrugSelectionRenderer = forwardRef<HTMLDivElement, BlockRendererProps>(
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [emitOutputValue, enrollmentModule, isEmr, renderKey]);
 
+    const preferredUtils = customData?.emrEnrollmentUtils as EmrEnrollmentUtils | undefined;
+    const preferredInput = JSON.stringify(preferredUtils?.buildPreferredDrugFormResponses() ?? []);
+    const selectedVariantId = state?.variantId ?? null;
+
+    useEffect(() => {
+        if (!preferredUtils || disabled || preferredInput === '[]') return;
+        let cancelled = false;
+        const choiceVersion = manualChoiceVersion.current;
+        const timeout = setTimeout(async () => {
+            setRecommendation({ loading: true, message: null });
+            try {
+                const result = await preferredUtils.resolvePreferredDrugs();
+                if (cancelled) return;
+                const applied = manualChoiceVersion.current === choiceVersion ? preferredUtils.applyPreferredDrugResolution() : [];
+                const labels = (selections: EmrPreferredDrugSelection[]) =>
+                    [
+                        ...new Set(selections.map((selection) => `${selection.drugName}${selection.phaseLabel ? ` (${selection.phaseLabel})` : ''}`)),
+                    ].join(', ');
+                const hasMatches = result.form_results.some((form) => form.preferred_drugs.length > 0);
+                setRecommendation({
+                    loading: false,
+                    message: applied.length
+                        ? `Based on your responses, the preferred option is ${labels(applied)}. We've selected it for you. You can change your selection below.`
+                        : hasMatches
+                          ? 'Your responses suggest a medication preference. Review the options below; your current selection has been kept.'
+                          : 'No specific medication preference was found in your responses. Choose from the options below.',
+                });
+                if (applied.length) {
+                    setRenderKey((value) => value + 1);
+                    emitOutputValue();
+                }
+            } catch {
+                if (!cancelled)
+                    setRecommendation({
+                        loading: false,
+                        message: 'Medication recommendations are temporarily unavailable. You can still choose from the options below.',
+                    });
+            }
+        }, 250);
+        return () => {
+            clearTimeout(timeout);
+            cancelled = true;
+        };
+    }, [preferredUtils, preferredInput, selectedVariantId, disabled, emitOutputValue]);
+
     if (!isEmr) {
         return (
             <div ref={ref}>
@@ -1437,6 +1436,14 @@ const EmrDrugSelectionRenderer = forwardRef<HTMLDivElement, BlockRendererProps>(
 
     return (
         <div ref={ref} className={cn('space-y-6', disabled && 'pointer-events-none opacity-70')}>
+            {(recommendation.loading || recommendation.message) && (
+                <Alert aria-live="polite">
+                    <Sparkles className="h-4 w-4" />
+                    <AlertDescription>
+                        {recommendation.loading ? 'Checking your responses for a preferred medication…' : recommendation.message}
+                    </AlertDescription>
+                </Alert>
+            )}
             <div
                 className="rounded-[30px] border px-5 py-6 shadow-sm sm:px-6"
                 style={{
@@ -1458,7 +1465,7 @@ const EmrDrugSelectionRenderer = forwardRef<HTMLDivElement, BlockRendererProps>(
                         </div>
                     </div>
 
-                    <div className="grid gap-3 grid-rows-3">
+                    <div className="grid grid-rows-3 gap-3">
                         <div className="rounded-2xl border px-4 py-3" style={getSoftCardStyle(primaryColor)}>
                             <p className="text-muted-foreground text-xs font-semibold tracking-[0.16em] uppercase">Selected plan</p>
                             <p className="text-foreground mt-1 text-sm font-semibold">{selectedPlanLabel}</p>
@@ -1471,7 +1478,7 @@ const EmrDrugSelectionRenderer = forwardRef<HTMLDivElement, BlockRendererProps>(
                             <p className="text-muted-foreground text-xs font-semibold tracking-[0.16em] uppercase">Current total</p>
                             <p className="text-foreground mt-1 text-sm font-semibold">
                                 {showPricing && state?.variantId
-                                    ? formatCurrency(state.total, currency)
+                                    ? formatCurrency(displayedTotal, currency)
                                     : selectedOptionalCount > 0
                                       ? `${selectedOptionalCount} add-on${selectedOptionalCount === 1 ? '' : 's'}`
                                       : 'Updates live'}
@@ -1489,9 +1496,13 @@ const EmrDrugSelectionRenderer = forwardRef<HTMLDivElement, BlockRendererProps>(
             ) : null}
 
             <VariantSelector
-                variants={variants}
                 selectedId={state?.variantId ?? null}
-                onSelect={(id) => update(() => enrollmentModule.setSelectedEmrVariantId(id))}
+                onSelect={(id, billingOptionId) =>
+                    update(() => {
+                        enrollmentModule.setSelectedEmrVariantId(id);
+                        enrollmentModule.setSelectedEmrBillingOptionId(billingOptionId);
+                    })
+                }
                 enrollmentModule={enrollmentModule}
                 primaryColor={primaryColor}
                 currency={currency}
@@ -1661,7 +1672,19 @@ const MultiSelectGroupSection: React.FC<{
     showPhases: boolean;
     disabled?: boolean;
     addOnPricing?: { currency: string; bundleSize: number } | null;
-}> = ({ group, selectedDrugs, selectedDrugIds, enrollmentModule, update, primaryColor, showImages, showDetails, showPhases, disabled = false, addOnPricing }) => {
+}> = ({
+    group,
+    selectedDrugs,
+    selectedDrugIds,
+    enrollmentModule,
+    update,
+    primaryColor,
+    showImages,
+    showDetails,
+    showPhases,
+    disabled = false,
+    addOnPricing,
+}) => {
     const [isDrugChooserOpen, setIsDrugChooserOpen] = useState(false);
 
     const toggleDrug = (drugId: number) => {
@@ -1750,13 +1773,13 @@ const MultiSelectGroupSection: React.FC<{
 EmrDrugSelectionRenderer.displayName = 'EmrDrugSelectionRenderer';
 
 const EmrDrugSelectionBlock: BlockDefinition = {
-    type: "variant-selection",
-    name: "Treatment Variant Selection",
+    type: 'variant-selection',
+    name: 'Treatment Variant Selection',
     description: 'Drug groups, standalone drugs, optional add-ons, titration phases, and pricing for EMR treatment plans',
     icon: <Pill className="h-4 w-4" />,
     defaultData: {
-        type: "variant-selection",
-        fieldName: "selectedVariation",
+        type: 'variant-selection',
+        fieldName: 'selectedVariation',
         showPricing: true,
         showTitrationPhases: true,
         showDrugDetails: true,
@@ -1764,8 +1787,8 @@ const EmrDrugSelectionBlock: BlockDefinition = {
         required: true,
     },
     generateDefaultData: () => ({
-        type: "variant-selection",
-        fieldName: "selectedVariation",
+        type: 'variant-selection',
+        fieldName: 'selectedVariation',
         showPricing: true,
         showTitrationPhases: true,
         showDrugDetails: true,
@@ -1807,6 +1830,7 @@ const EmrDrugSelectionBlock: BlockDefinition = {
     outputSchema: {
         type: 'object',
         properties: {
+            billingOptionId: { type: 'number', description: 'Selected prepaid billing option; null for pay per refill' },
             variantId: { type: 'string', description: 'Selected refill variant ID' },
             variantName: { type: 'string', description: 'Selected refill variant name' },
             variantPrice: { type: 'number', description: 'Variant base price' },

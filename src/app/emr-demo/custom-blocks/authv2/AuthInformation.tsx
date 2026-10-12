@@ -353,7 +353,7 @@ const AuthInformationRenderer = forwardRef<
   const formData = value || { email: "", phone: "", privacyAgreed: false };
 
   // Get enrollment module from customData
-  const enrollmentModule = customData?.enrollmentModule;
+  const enrollmentModule = (customData?.emrEnrollmentUtils ?? customData?.enrollmentModule);
 
   // Use enrollment module's default storage key
   const storageKey = enrollmentModule?.getPatientAuthStorageKey();
@@ -617,7 +617,7 @@ export const AuthInformationBlock: BlockDefinition = {
     return null;
   },
   validateValue: (value: any, blockData: BlockData) => {
-    let errors = {} as any;
+    const errors = {} as any;
 
     if (!value) {
       return {

@@ -33,6 +33,7 @@ export interface EmrEnrollmentListItem {
 }
 
 export interface PaymentCharged {
+    authorization_expires_at?: number | null;
     amount_cents: number;
     amount: number;
     stripe_payment_intent_id: string;

@@ -27,7 +27,7 @@ import { Label } from "@/packages/survey-form-package/src/components/ui/label";
 import { Card } from "@/packages/survey-form-package/src/components/ui/card";
 import { cn } from "@/packages/survey-form-package/src/lib/utils";
 // @ts-ignore
-import { EnrollmentModuleTypes } from "@/lib/enrollment-wrapper";
+import type { PatientAuthConfig, PatientAuthFormData } from "@/lib/enrollment-types";
 import {
   Select,
   SelectContent,
@@ -395,10 +395,10 @@ const VerificationInformationRenderer = forwardRef<
   const MAX_RESEND_ATTEMPTS = 3;
   const COOLDOWN_DURATION_MS = 10 * 60 * 1000;
 
-  const countdownIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const countdownIntervalRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const hasCheckedToken = useRef(false);
 
-  const enrollmentModule = customData?.enrollmentModule;
+  const enrollmentModule = (customData?.emrEnrollmentUtils ?? customData?.enrollmentModule);
   const emailKey = block.emailKey || "AuthInformation.email";
   const phoneKey = block.phoneKey || "AuthInformation.phone";
   const authField = block.authField || "email";
@@ -408,7 +408,7 @@ const VerificationInformationRenderer = forwardRef<
   const phone = getNestedValue(values, phoneKey) || "";
 
   // Build config from block data
-  const config = useMemo<EnrollmentModuleTypes.PatientAuthConfig>(() => {
+  const config = useMemo<PatientAuthConfig>(() => {
     if (!enrollmentModule) {
       return {
         authMethod: authMethod,
@@ -444,7 +444,7 @@ const VerificationInformationRenderer = forwardRef<
   }, [block.storageKeyIdentifier, enrollmentModule]);
 
   // Build form data for auth
-  const formDataForAuth = useMemo<EnrollmentModuleTypes.PatientAuthFormData>(
+  const formDataForAuth = useMemo<PatientAuthFormData>(
     () => ({
       email: email,
       phone: phone,

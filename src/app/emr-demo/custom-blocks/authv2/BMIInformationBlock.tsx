@@ -270,7 +270,7 @@ const BMIInformationRenderer = React.forwardRef<
   const updateTimeoutRef = React.useRef<NodeJS.Timeout | null>(null);
 
   // Get enrollment module from customData
-  const enrollmentModule = customData?.enrollmentModule;
+  const enrollmentModule = (customData?.emrEnrollmentUtils ?? customData?.enrollmentModule);
 
   // Use enrollment module's default storage key
   const storageKey = enrollmentModule?.getPatientAuthStorageKey();

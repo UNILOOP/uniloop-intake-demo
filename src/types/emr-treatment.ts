@@ -5,6 +5,25 @@ export interface EmrTreatmentCategory {
     color: string;
 }
 
+export interface EmrBillingOption {
+    id: number;
+    uuid: string;
+    variant_key: string;
+    label: string;
+    supply_count: number;
+    units_per_supply: number;
+    base_price_cents: number;
+    compare_at_price_cents: number | null;
+    currency: string;
+    renewal_policy: 'auto_renew' | 'require_new_purchase' | 'end_enrollment';
+    effective_renewal_policy: 'auto_renew' | 'require_new_purchase' | 'end_enrollment';
+    inherits_renewal_policy: boolean;
+    is_active: boolean;
+    is_default: boolean;
+    sort_order: number;
+    revision: number;
+}
+
 export interface EmrTreatmentPlanListItem {
     id: number;
     uuid: string;
@@ -39,6 +58,7 @@ export interface EmrTreatmentAutomation {
 }
 
 export interface EmrPhaseLinkedDrug {
+    id?: number;
     uuid: string;
     display_name: string | null;
     custom_display_name: string | null;
@@ -80,6 +100,8 @@ export interface EmrLinkedDrug {
 }
 
 export interface EmrTreatmentPlanDrug {
+    uniemr_drug_id?: string;
+    uniemr_merchant_drug_id?: string;
     id: number;
     drug_name: string;
     dosage: string | null;
@@ -105,6 +127,7 @@ export interface EmrTreatmentPlanDrug {
 }
 
 export interface EmrTreatmentPlanDrugGroup {
+    uniemr_drug_group_id?: string;
     id: number;
     name: string;
     description: string | null;
@@ -138,6 +161,9 @@ export interface EmrTreatmentPlanForm {
 }
 
 export interface EmrRefillVariant {
+    enrollment_enabled?: boolean;
+    pay_per_refill_enabled?: boolean;
+    pay_per_refill_sort_order?: number;
     id: string;
     name: string;
     code: string | null;
@@ -166,6 +192,7 @@ export interface EmrSyncInfo {
 }
 
 export interface EmrTreatmentPlan {
+    billing_options?: EmrBillingOption[];
     id: number;
     uuid: string;
     name: string;

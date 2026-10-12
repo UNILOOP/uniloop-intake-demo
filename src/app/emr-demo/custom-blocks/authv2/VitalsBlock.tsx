@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import { Activity } from "lucide-react";
 
 import type {
@@ -162,9 +162,9 @@ const VitalsRenderer = React.forwardRef<HTMLDivElement, BlockRendererProps>(
 
     const [hasInteracted, setHasInteracted] = useState(false);
     const hasCheckedPatient = React.useRef(false);
-    const updateTimeoutRef = React.useRef<NodeJS.Timeout | null>(null);
+    const updateTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-    const enrollmentModule = customData?.enrollmentModule;
+    const enrollmentModule = (customData?.emrEnrollmentUtils ?? customData?.enrollmentModule);
     const storageKey = enrollmentModule?.getPatientAuthStorageKey();
 
     const configuredVitals = resolveVitals(block.vitals || ["height", "weight"]);
@@ -176,7 +176,7 @@ const VitalsRenderer = React.forwardRef<HTMLDivElement, BlockRendererProps>(
     const fieldName = block.fieldName || "vitals";
     const existing = values?.[fieldName] || {};
     const [vitalValues, setVitalValues] = useState<Record<string, any>>({
-      feet: existing.feet || 5,
+      feet: existing.feet || "",
       inches: existing.inches ?? "",
       weight: existing.weight ?? "",
       systolic: existing.systolic ?? "",
@@ -265,64 +265,6 @@ const VitalsRenderer = React.forwardRef<HTMLDivElement, BlockRendererProps>(
       checkExisting();
     }, [enrollmentModule, storageKey, fieldName]);
 
-    // Sync vitalValues to parent form via onChange (avoids setState-during-render)
-    const prevVitalsRef = React.useRef(vitalValues);
-    useEffect(() => {
-      if (prevVitalsRef.current !== vitalValues) {
-        prevVitalsRef.current = vitalValues;
-        onChange?.(vitalValues);
-      }
-    }, [vitalValues, onChange]);
-
-    // Debounced API update when vitals change
-    useEffect(() => {
-      if (!enrollmentModule || !hasInteracted) return;
-
-      if (updateTimeoutRef.current) clearTimeout(updateTimeoutRef.current);
-
-      updateTimeoutRef.current = setTimeout(() => {
-        const apiData: Record<string, any> = {};
-
-        if (hasHeight) {
-          const f = Number(vitalValues.feet) || 0;
-          const i = Number(vitalValues.inches) || 0;
-          if (f > 0) {
-            const heightInches = enrollmentModule.feetInchesToInches(f, i);
-            apiData.height = heightInches;
-            apiData.height_unit = "in";
-            enrollmentModule.updatePatientField("height", heightInches, storageKey)
-              .catch((e: any) => console.error("[VitalsBlock] Error updating patient height:", e));
-          }
-        }
-        if (hasWeight && Number(vitalValues.weight) > 0) {
-          apiData.weight = Number(vitalValues.weight);
-          apiData.weight_unit = "lbs";
-          enrollmentModule.updatePatientField("weight", Number(vitalValues.weight), storageKey)
-            .catch((e: any) => console.error("[VitalsBlock] Error updating patient weight:", e));
-        }
-        if (configuredVitals.includes("systolic") && vitalValues.systolic) {
-          apiData.systolic = Number(vitalValues.systolic);
-        }
-        if (configuredVitals.includes("diastolic") && vitalValues.diastolic) {
-          apiData.diastolic = Number(vitalValues.diastolic);
-        }
-        if (configuredVitals.includes("pulse") && vitalValues.pulse) {
-          apiData.pulse = Number(vitalValues.pulse);
-        }
-        if (configuredVitals.includes("temperature") && vitalValues.temperature) {
-          apiData.temperature = Number(vitalValues.temperature);
-          apiData.temperature_unit = "F";
-        }
-        if (configuredVitals.includes("oxygen_saturation") && vitalValues.oxygen_saturation) {
-          apiData.oxygen_saturation = Number(vitalValues.oxygen_saturation);
-        }
-
-        if (Object.keys(apiData).length > 0) {
-          enrollmentModule.setPendingVitalData(apiData);
-        }
-      }, 500);
-    }, [vitalValues, enrollmentModule, storageKey, hasHeight, hasWeight, configuredVitals, hasInteracted]);
-
     const updateValue = useCallback(
       (key: string, value: any) => {
         setHasInteracted(true);
@@ -338,10 +280,60 @@ const VitalsRenderer = React.forwardRef<HTMLDivElement, BlockRendererProps>(
             next.bmi = feet > 0 && weight > 0 ? calculateBMI(feet, inches, weight) : null;
           }
 
+          onChange?.(next);
+
+          // Debounced API update
+          if (enrollmentModule) {
+            if (updateTimeoutRef.current) clearTimeout(updateTimeoutRef.current);
+
+            updateTimeoutRef.current = setTimeout(() => {
+              const apiData: Record<string, any> = {};
+
+              if (hasHeight) {
+                const f = Number(next.feet) || 0;
+                const i = Number(next.inches) || 0;
+                if (f > 0) {
+                  const heightInches = enrollmentModule.feetInchesToInches(f, i);
+                  apiData.height = heightInches;
+                  apiData.height_unit = "in";
+                  // Also update patient profile for backward compat
+                  enrollmentModule.updatePatientField("height", heightInches, storageKey)
+                    .catch((e: any) => console.error("[VitalsBlock] Error updating patient height:", e));
+                }
+              }
+              if (hasWeight && Number(next.weight) > 0) {
+                apiData.weight = Number(next.weight);
+                apiData.weight_unit = "lbs";
+                enrollmentModule.updatePatientField("weight", Number(next.weight), storageKey)
+                  .catch((e: any) => console.error("[VitalsBlock] Error updating patient weight:", e));
+              }
+              if (configuredVitals.includes("systolic") && next.systolic) {
+                apiData.systolic = Number(next.systolic);
+              }
+              if (configuredVitals.includes("diastolic") && next.diastolic) {
+                apiData.diastolic = Number(next.diastolic);
+              }
+              if (configuredVitals.includes("pulse") && next.pulse) {
+                apiData.pulse = Number(next.pulse);
+              }
+              if (configuredVitals.includes("temperature") && next.temperature) {
+                apiData.temperature = Number(next.temperature);
+                apiData.temperature_unit = "F";
+              }
+              if (configuredVitals.includes("oxygen_saturation") && next.oxygen_saturation) {
+                apiData.oxygen_saturation = Number(next.oxygen_saturation);
+              }
+
+              if (Object.keys(apiData).length > 0) {
+                enrollmentModule.setPendingVitalData(apiData);
+              }
+            }, 500);
+          }
+
           return next;
         });
       },
-      [hasHeight, hasWeight]
+      [enrollmentModule, storageKey, onChange, hasHeight, hasWeight, configuredVitals]
     );
 
     // Cleanup timeout on unmount

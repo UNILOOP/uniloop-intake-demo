@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": { "incremental": false },
+  "include": [
+    "next-env.d.ts",
+    "src/app/emr-demo/page.tsx",
+    "src/app/emr-builder-demo/page.tsx",
+    "src/app/api/uniloop/[...path]/route.ts",
+    "src/app/api/uniloop-config/route.ts",
+    "src/app/api/uniloop-patient/[...path]/route.ts"
+  ]
+}

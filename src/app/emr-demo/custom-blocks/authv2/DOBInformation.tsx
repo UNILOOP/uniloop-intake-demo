@@ -104,7 +104,7 @@ const DOBInformationRenderer = forwardRef<HTMLInputElement, BlockRendererProps>(
     const [isUpdating, setIsUpdating] = useState(false)
 
     // Get enrollment module from customData
-    const enrollmentModule = customData?.enrollmentModule
+    const enrollmentModule = (customData?.emrEnrollmentUtils ?? customData?.enrollmentModule)
 
     // Use enrollment module's default storage key
     const storageKey = enrollmentModule?.getPatientAuthStorageKey()
