@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "test:emr": "bun test tests/emr-demo.test.js",
-    "typecheck:emr": "tsc --project tsconfig.emr.json --noEmit"
+    "typecheck:emr": "tsc --project tsconfig.emr.json --noEmit",
+    "blocks:build": "bun scripts/build-portal-blocks.ts && tsc --project tsconfig.blocks.json --noEmit"
   },
   "workspaces": [
     "src/packages/*"

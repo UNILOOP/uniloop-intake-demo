@@ -14,7 +14,7 @@ import {
   StandardNodes,
 } from '@/packages/survey-form-package/src/builder';
 import { getSystemBlocks } from './custom-blocks';
-import { DemoForm, normalizeForms } from './forms';
+import { DemoForm, normalizeForms, withMultiPageCheckout } from './forms';
 import { loadMerchantComponents } from './merchant-components';
 import { createMerchantLogo } from './merchant-logo';
 import { FormErrorBoundary } from './form-error-boundary';
@@ -75,6 +75,8 @@ export default function EmrDemoPage() {
   const [error, setError] = useState('');
   const [result, setResult] = useState<any>(null);
   const [answers, setAnswers] = useState<Record<number, any>>({});
+  // `?checkout=two-page` or `three-page` splits each checkout form into pages
+  const [checkoutPages, setCheckoutPages] = useState<2 | 3>();
   const [runtime, setRuntime] = useState<{
     utils: EmrEnrollmentUtils;
     legacy: ReturnType<typeof createLegacyEmrEnrollmentAdapter>;
@@ -89,7 +91,10 @@ export default function EmrDemoPage() {
     () => createMerchantLogo(plan?.merchant),
     [plan?.merchant],
   );
-  const visibleForms = forms;
+  const visibleForms = useMemo(
+    () => (checkoutPages ? withMultiPageCheckout(forms, checkoutPages) : forms),
+    [forms, checkoutPages],
+  );
   const current =
     visibleForms.find((form) => form.key === selectedKey) ?? visibleForms[0];
   const context = useRef<any>(null);
@@ -98,6 +103,13 @@ export default function EmrDemoPage() {
     currentFormId: current?.id ?? null,
     answers,
   };
+
+  useEffect(() => {
+    const checkout = new URLSearchParams(window.location.search).get('checkout');
+    setCheckoutPages(
+      checkout === 'two-page' ? 2 : checkout === 'three-page' ? 3 : undefined,
+    );
+  }, []);
 
   useEffect(() => {
     const read = () => {
