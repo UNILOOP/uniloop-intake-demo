@@ -3388,6 +3388,24 @@ export class EmrEnrollmentUtils {
     }
 
     /**
+     * Release an authorization hold that will no longer be submitted, such as the first hold after an upsell placed a
+     * new one for the larger total. Resolves on success; throws on HTTP/network failure. The server also releases an
+     * unsubmitted hold on its own, so a caller may ignore a failure.
+     * @group Stripe and payments
+     * @param authToken Verified patient bearer token for the current session.
+     * @param paymentIntentId PaymentIntent id of the hold, as returned by createAuthorizationIntent.
+     * @returns A promise that resolves once the hold is released.
+     * @example await utils.cancelAuthorizationIntent(token, oldPaymentIntentId);
+     */
+    async cancelAuthorizationIntent(authToken: string, paymentIntentId: string): Promise<void> {
+        const response = await enrollmentFetch(`/api/patient/payments/store-credits/intents/${encodeURIComponent(paymentIntentId)}`, {
+            method: 'DELETE',
+            headers: { Accept: 'application/json', Authorization: 'Bearer ' + authToken },
+        });
+        if (!response.ok) throw new Error('Unable to release the previous payment authorization.');
+    }
+
+    /**
      * Cancel background vital timers and invalidate outstanding vital responses. Keep persisted drafts for reload/Stripe
      * return recovery. Call when the owning page unmounts.
      * @group Session

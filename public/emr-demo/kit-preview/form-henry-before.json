@@ -1,0 +1,2245 @@
+{
+  "rootNode": {
+    "name": "glp1",
+    "type": "section",
+    "uuid": "e522ef1c-3637-4b2d-99c3-13c035d19b99",
+    "items": [
+      {
+        "type": "optionCards",
+        "fieldName": "selectableboxxm0ezw",
+        "label": "Why do you want/need to lose weight?",
+        "description": "Please select all that apply",
+        "multiSelect": true,
+        "required": true,
+        "cardStyle": "list",
+        "indicator": "left",
+        "columns": 0,
+        "splitLabelAtDash": false,
+        "note": "",
+        "noteTone": "warning",
+        "warningColor": "",
+        "warningSurface": "",
+        "defaultValue": "",
+        "options": [
+          {
+            "id": "38eaf1b5-e7b8-49d7-b3d9-7afcc51f6630",
+            "label": "All of the below",
+            "value": "All of the below",
+            "exclusiveAutoSubmit": true
+          },
+          {
+            "id": "38eaf1b5-e7b8-49d7-b3d9-7afcc51f6631",
+            "label": "Increase my energy levels and reduce fatigue",
+            "value": "Increase my energy levels and reduce fatigue"
+          },
+          {
+            "id": "f44c068f-d025-4c5b-b253-31ea55eaeb68",
+            "label": "Feel more confident in my body",
+            "value": "Feel more confident in my body"
+          },
+          {
+            "id": "6d90b2fc-56df-49b2-b827-1a5568a08ee4",
+            "label": "Improve my overall health",
+            "value": "Improve my overall health"
+          },
+          {
+            "id": "60f13f51-5285-492d-ad9c-bca22cf67edd",
+            "label": "Feel better physically on a day-to-day basis",
+            "value": "Feel better physically on a day-to-day basis"
+          },
+          {
+            "id": "fcdb6b77-e612-4e96-8906-35592fc2aac9",
+            "label": "Feel comfortable and confident in my clothing",
+            "value": "Feel comfortable and confident in my clothing"
+          }
+        ],
+        "uuid": "ecbe2d93-007a-4517-9503-df1e94059e74",
+        "isEndBlock": false,
+        "navigationRules": [],
+        "validationRules": [
+          {
+            "message": "This field is required",
+            "operator": "isNotEmpty",
+            "severity": "error"
+          }
+        ],
+        "isEndBlockManual": false
+      },
+      {
+        "type": "optionCards",
+        "fieldName": "selectableboxzziytz",
+        "label": "How many pounds do you want to lose?",
+        "description": "",
+        "multiSelect": false,
+        "required": true,
+        "cardStyle": "list",
+        "indicator": "left",
+        "columns": 0,
+        "splitLabelAtDash": false,
+        "note": "15–20% average body weight lost in clinical studies of GLP-1 medication, alongside diet and exercise.*",
+        "noteTone": "brand",
+        "warningColor": "",
+        "warningSurface": "",
+        "defaultValue": "",
+        "options": [
+          {
+            "id": "38eaf1b5-e7b8-49d7-b3d9-7afcc51f6631",
+            "label": "5 - 20 lbs",
+            "value": "5 - 20 lbs"
+          },
+          {
+            "id": "cccff843-695a-4329-ab49-45f3e232cf51",
+            "label": "21 - 50 lbs",
+            "value": "21 - 50 lbs"
+          },
+          {
+            "id": "a9aeb4e7-5954-4408-9edd-9ae161a1b2c6",
+            "label": "51+ lbs",
+            "value": "51+ lbs"
+          },
+          {
+            "id": "9aa09cdb-eb50-4d08-8393-806e7a839a1f",
+            "label": "I’m not sure yet",
+            "value": "I’m not sure yet"
+          }
+        ],
+        "uuid": "58bda6eb-7be8-4a26-b447-4b2000a0d739",
+        "isEndBlock": false,
+        "navigationRules": [],
+        "validationRules": [
+          {
+            "message": "This field is required",
+            "operator": "isNotEmpty",
+            "severity": "error"
+          }
+        ],
+        "autoContinueOnSelect": true,
+        "showContinueButton": false
+      },
+      {
+        "type": "select",
+        "uuid": "0c271c31-8d9a-4227-97f8-4813293a9a27",
+        "fieldName": "residenceState",
+        "required": true,
+        "label": "Which state do you live in?",
+        "description": "",
+        "placeholder": "Select your state",
+        "options": [
+          {
+            "id": "c2c2c303-c615-45ba-b76f-b6d777d15fe7",
+            "value": "AL",
+            "label": "Alabama"
+          },
+          {
+            "id": "5771bf77-0096-4e92-a47b-7b479e9d1cc1",
+            "value": "AK",
+            "label": "Alaska"
+          },
+          {
+            "id": "42716454-f3a6-4b33-99d3-e6bd18f433e5",
+            "value": "AZ",
+            "label": "Arizona"
+          },
+          {
+            "id": "4b0f16ad-a1da-4953-bd1a-80bde4baf462",
+            "value": "AR",
+            "label": "Arkansas"
+          },
+          {
+            "id": "dc89bcf1-1b07-4fdd-8d86-dd0c90901b14",
+            "value": "CA",
+            "label": "California"
+          },
+          {
+            "id": "588cea84-3c9e-4457-8de4-022340f50a06",
+            "value": "CO",
+            "label": "Colorado"
+          },
+          {
+            "id": "cb8144b4-b315-4654-a00f-c618131be5ec",
+            "value": "CT",
+            "label": "Connecticut"
+          },
+          {
+            "id": "72c52590-e86f-4ce1-a3b5-086ccf7af683",
+            "value": "DE",
+            "label": "Delaware"
+          },
+          {
+            "id": "bf8d7768-2502-4bee-a4fa-b1159993ee9a",
+            "value": "DC",
+            "label": "District of Columbia"
+          },
+          {
+            "id": "8d20e354-dc98-48df-b957-1069dcca1922",
+            "value": "FL",
+            "label": "Florida"
+          },
+          {
+            "id": "60a3bada-75c2-47b1-bc02-f143788f741c",
+            "value": "GA",
+            "label": "Georgia"
+          },
+          {
+            "id": "5f33388a-c2e5-4452-bbde-f33f9b1082ad",
+            "value": "HI",
+            "label": "Hawaii"
+          },
+          {
+            "id": "f6dbf996-7bc6-4f74-a4f5-ef6b7356fba4",
+            "value": "ID",
+            "label": "Idaho"
+          },
+          {
+            "id": "4309235b-be67-45e2-9941-1eebdf426cc7",
+            "value": "IL",
+            "label": "Illinois"
+          },
+          {
+            "id": "8fe26913-cd4d-45f8-96c3-0ac94eb0823f",
+            "value": "IN",
+            "label": "Indiana"
+          },
+          {
+            "id": "d430ad59-19ed-4efb-98fe-e709dad57352",
+            "value": "IA",
+            "label": "Iowa"
+          },
+          {
+            "id": "d678c50e-3f78-48ff-a6af-06fd896157aa",
+            "value": "KS",
+            "label": "Kansas"
+          },
+          {
+            "id": "29e2ce1d-8d9b-4f94-9940-af68b92a8de2",
+            "value": "KY",
+            "label": "Kentucky"
+          },
+          {
+            "id": "de56551b-ad44-4616-b1a5-937b80b3e0f0",
+            "value": "LA",
+            "label": "Louisiana"
+          },
+          {
+            "id": "6652b046-081b-48c0-ab5a-5e6f47166e82",
+            "value": "ME",
+            "label": "Maine"
+          },
+          {
+            "id": "c2f1a199-2af0-41f8-ba35-60123264cfe1",
+            "value": "MD",
+            "label": "Maryland"
+          },
+          {
+            "id": "52cdc0d6-3f7b-4292-b808-6ceed9ea64f2",
+            "value": "MA",
+            "label": "Massachusetts"
+          },
+          {
+            "id": "5dcf1fc2-6784-438a-904c-f49753a61f46",
+            "value": "MI",
+            "label": "Michigan"
+          },
+          {
+            "id": "61dfc855-2e1a-48a7-b21f-b5e405bf2bb8",
+            "value": "MN",
+            "label": "Minnesota"
+          },
+          {
+            "id": "0f855628-1460-4eb1-808b-88fffc7403af",
+            "value": "MS",
+            "label": "Mississippi"
+          },
+          {
+            "id": "fa83790d-d3b5-4fe4-8eaa-7b9b4f1d8953",
+            "value": "MO",
+            "label": "Missouri"
+          },
+          {
+            "id": "a52fff7e-45c8-44e8-8ffe-41a7a073a872",
+            "value": "MT",
+            "label": "Montana"
+          },
+          {
+            "id": "e2a31551-374f-49cf-9be3-c623f7c9fbe6",
+            "value": "NE",
+            "label": "Nebraska"
+          },
+          {
+            "id": "9a0fac4f-5815-462b-8cda-1bb7718fb7a5",
+            "value": "NV",
+            "label": "Nevada"
+          },
+          {
+            "id": "a6223d1d-4311-495d-8af7-365db6ec2fcb",
+            "value": "NH",
+            "label": "New Hampshire"
+          },
+          {
+            "id": "3ffcc2ca-7c55-4983-a48c-24fdd7ab63e0",
+            "value": "NJ",
+            "label": "New Jersey"
+          },
+          {
+            "id": "859d7637-997e-405a-9305-4df3d9e8730d",
+            "value": "NM",
+            "label": "New Mexico"
+          },
+          {
+            "id": "0e8596ab-82cb-4da3-a72e-7dc1f6889f09",
+            "value": "NY",
+            "label": "New York"
+          },
+          {
+            "id": "eb0fd0b9-733d-4b8b-81ce-241c62532066",
+            "value": "NC",
+            "label": "North Carolina"
+          },
+          {
+            "id": "4b654372-7f2e-41e6-8558-f307853644a5",
+            "value": "ND",
+            "label": "North Dakota"
+          },
+          {
+            "id": "a5a523fd-c002-4df8-81ed-db3d8b56fa6d",
+            "value": "OH",
+            "label": "Ohio"
+          },
+          {
+            "id": "2c11fc8f-eee6-4549-8070-764d22ded5dd",
+            "value": "OK",
+            "label": "Oklahoma"
+          },
+          {
+            "id": "22d621f0-d7ff-494d-bc2a-35063ce6ec31",
+            "value": "OR",
+            "label": "Oregon"
+          },
+          {
+            "id": "4b9607ad-e266-4ff1-8d58-155626d1f0cb",
+            "value": "PA",
+            "label": "Pennsylvania"
+          },
+          {
+            "id": "ac8ae362-3152-4691-a038-349bce3e2afb",
+            "value": "RI",
+            "label": "Rhode Island"
+          },
+          {
+            "id": "7892d91a-20cb-401f-85af-606bd57099ad",
+            "value": "SC",
+            "label": "South Carolina"
+          },
+          {
+            "id": "19eebebe-b490-48d7-961f-54861de30051",
+            "value": "SD",
+            "label": "South Dakota"
+          },
+          {
+            "id": "cc8872e5-dc59-4392-b655-b18d89ee775c",
+            "value": "TN",
+            "label": "Tennessee"
+          },
+          {
+            "id": "a16afebe-73f9-4d76-b367-cf6a85f2bdb2",
+            "value": "TX",
+            "label": "Texas"
+          },
+          {
+            "id": "ae8e9e21-f315-4d0b-8e52-6b772fb7eb1f",
+            "value": "UT",
+            "label": "Utah"
+          },
+          {
+            "id": "2e0505f5-26db-4726-99af-30ae6a7d6808",
+            "value": "VT",
+            "label": "Vermont"
+          },
+          {
+            "id": "41bac25a-0529-46ce-8daf-073e0ac852a8",
+            "value": "VA",
+            "label": "Virginia"
+          },
+          {
+            "id": "938c95ef-94ac-4431-8ffb-f92085863961",
+            "value": "WA",
+            "label": "Washington"
+          },
+          {
+            "id": "725461ed-286c-44b8-a02d-bc3b7d31e42e",
+            "value": "WV",
+            "label": "West Virginia"
+          },
+          {
+            "id": "dc0a5ba3-1fcc-4780-aa7b-aba6cd581560",
+            "value": "WI",
+            "label": "Wisconsin"
+          },
+          {
+            "id": "c08cc693-7e5e-473a-a665-cc6b1c83d311",
+            "value": "WY",
+            "label": "Wyoming"
+          }
+        ],
+        "labels": [
+          "Alabama",
+          "Alaska",
+          "Arizona",
+          "Arkansas",
+          "California",
+          "Colorado",
+          "Connecticut",
+          "Delaware",
+          "District of Columbia",
+          "Florida",
+          "Georgia",
+          "Hawaii",
+          "Idaho",
+          "Illinois",
+          "Indiana",
+          "Iowa",
+          "Kansas",
+          "Kentucky",
+          "Louisiana",
+          "Maine",
+          "Maryland",
+          "Massachusetts",
+          "Michigan",
+          "Minnesota",
+          "Mississippi",
+          "Missouri",
+          "Montana",
+          "Nebraska",
+          "Nevada",
+          "New Hampshire",
+          "New Jersey",
+          "New Mexico",
+          "New York",
+          "North Carolina",
+          "North Dakota",
+          "Ohio",
+          "Oklahoma",
+          "Oregon",
+          "Pennsylvania",
+          "Rhode Island",
+          "South Carolina",
+          "South Dakota",
+          "Tennessee",
+          "Texas",
+          "Utah",
+          "Vermont",
+          "Virginia",
+          "Washington",
+          "West Virginia",
+          "Wisconsin",
+          "Wyoming"
+        ],
+        "values": [
+          "AL",
+          "AK",
+          "AZ",
+          "AR",
+          "CA",
+          "CO",
+          "CT",
+          "DE",
+          "DC",
+          "FL",
+          "GA",
+          "HI",
+          "ID",
+          "IL",
+          "IN",
+          "IA",
+          "KS",
+          "KY",
+          "LA",
+          "ME",
+          "MD",
+          "MA",
+          "MI",
+          "MN",
+          "MS",
+          "MO",
+          "MT",
+          "NE",
+          "NV",
+          "NH",
+          "NJ",
+          "NM",
+          "NY",
+          "NC",
+          "ND",
+          "OH",
+          "OK",
+          "OR",
+          "PA",
+          "RI",
+          "SC",
+          "SD",
+          "TN",
+          "TX",
+          "UT",
+          "VT",
+          "VA",
+          "WA",
+          "WV",
+          "WI",
+          "WY"
+        ],
+        "navigationRules": [],
+        "isEndBlock": false
+      },
+      {
+        "type": "stateAvailability",
+        "uuid": "ced37a8d-5fc4-4adb-a961-579a37ebe105",
+        "fieldName": "state",
+        "required": true,
+        "stateFieldName": "residenceState",
+        "pickerLabel": "Which state do you live in?",
+        "pickerPlaceholder": "Select your state",
+        "accentHeading": "Good news.",
+        "heading": "VitalMeds is available in {state}",
+        "lines": [
+          {
+            "icon": "check",
+            "text": "Licensed providers in {state} can prescribe GLP-1 medication"
+          },
+          {
+            "icon": "truck",
+            "text": "Ships to {state} in 2–4 days — free and discreet"
+          },
+          {
+            "icon": "shield",
+            "text": "No insurance needed · HSA/FSA eligible"
+          }
+        ],
+        "imageUrl": "https://d2pmrhc7rl7s59.cloudfront.net/merchants/25/gallery/J6PXo5N2SeGRJt5hLqjf7BFNEWsi7Xq9faDp2YlY.jpg",
+        "imageAlt": "",
+        "unavailableHeading": "We’re not in {state} yet",
+        "unavailableText": "Treatment isn’t available in {state} at the moment.",
+        "unavailableLinkText": "",
+        "unavailableLinkUrl": "",
+        "message": "Choose a state where treatment is available to continue.",
+        "hidePrivacy": true,
+        "navigationRules": [],
+        "isEndBlock": false
+      },
+      {
+        "type": "optionCards",
+        "fieldName": "selectablebox27uzg7",
+        "label": "Sex assigned to you at birth?",
+        "description": "",
+        "multiSelect": false,
+        "required": true,
+        "cardStyle": "row",
+        "indicator": "left",
+        "columns": 0,
+        "splitLabelAtDash": false,
+        "note": "",
+        "noteTone": "warning",
+        "warningColor": "",
+        "warningSurface": "",
+        "defaultValue": "",
+        "options": [
+          {
+            "id": "38eaf1b5-e7b8-49d7-b3d9-7afcc51f6630",
+            "label": "Female",
+            "value": "Female"
+          },
+          {
+            "id": "38eaf1b5-e7b8-49d7-b3d9-7afcc51f6631",
+            "label": "Male",
+            "value": "Male"
+          }
+        ],
+        "uuid": "385735ae-f8cc-4ef4-a0a4-8abdab0f01dc",
+        "isEndBlock": false,
+        "nextBlockId": "6e477042-fe9b-4652-986f-f2c533b6c488",
+        "navigationRules": [
+          {
+            "target": "336cdb1f-3c82-4f55-bd3d-103c4f7aefe7",
+            "condition": "selectablebox27uzg7 == \"Female\""
+          }
+        ],
+        "validationRules": [
+          {
+            "message": "This field is required",
+            "operator": "isNotEmpty",
+            "severity": "error"
+          }
+        ],
+        "isEndBlockManual": false,
+        "autoContinueOnSelect": true,
+        "showContinueButton": false
+      },
+      {
+        "type": "optionCards",
+        "fieldName": "selectableboxoaiso8",
+        "label": "Your current or average blood pressure?",
+        "description": "Tip: Blood pressure is measured by Systolic / Diastolic",
+        "multiSelect": false,
+        "required": true,
+        "cardStyle": "list",
+        "indicator": "left",
+        "columns": 0,
+        "splitLabelAtDash": false,
+        "note": "",
+        "noteTone": "warning",
+        "warningColor": "",
+        "warningSurface": "",
+        "defaultValue": "",
+        "options": [
+          {
+            "id": "38eaf1b5-e7b8-49d7-b3d9-7afcc51f6630",
+            "label": "I’m unsure",
+            "value": "I’m unsure"
+          },
+          {
+            "id": "38eaf1b5-e7b8-49d7-b3d9-7afcc51f6631",
+            "label": "Normal (120/80 or lower)",
+            "value": "Normal (120/80 or lower)"
+          },
+          {
+            "id": "be38285d-f6a4-4bd9-87ca-77b4380e8388",
+            "label": "Elevated (120-129/ < 80)",
+            "value": "Elevated (120-129/ < 80)"
+          },
+          {
+            "id": "fc79e684-1b6a-4697-830b-528ab39b8d0b",
+            "label": "High - Stage 1 (130/ 80-89)",
+            "value": "High - Stage 1 (130/ 80-89)"
+          },
+          {
+            "id": "168203cf-a13d-4109-94d1-8d8033d1d702",
+            "label": "High - Stage 2 (≥ 140/ ≥ 90)",
+            "value": "High - Stage 2 (≥ 140/ ≥ 90)"
+          }
+        ],
+        "uuid": "6e477042-fe9b-4652-986f-f2c533b6c488",
+        "isEndBlock": false,
+        "nextBlockId": "260ee7d3-0bd8-41cd-888d-5904263fe519",
+        "navigationRules": [],
+        "validationRules": [
+          {
+            "message": "This field is required",
+            "operator": "isNotEmpty",
+            "severity": "error"
+          }
+        ],
+        "isEndBlockManual": false,
+        "autoContinueOnSelect": true,
+        "showContinueButton": false
+      },
+      {
+        "type": "optionCards",
+        "fieldName": "selectableboxsihdz3",
+        "label": "Your current or average heart rate?",
+        "description": "Tip: Smart watches/rings may monitor this for you",
+        "multiSelect": false,
+        "required": true,
+        "cardStyle": "list",
+        "indicator": "left",
+        "columns": 0,
+        "splitLabelAtDash": false,
+        "note": "",
+        "noteTone": "warning",
+        "warningColor": "",
+        "warningSurface": "",
+        "defaultValue": "",
+        "options": [
+          {
+            "id": "38eaf1b5-e7b8-49d7-b3d9-7afcc51f6630",
+            "label": "I’m unsure",
+            "value": "I’m unsure"
+          },
+          {
+            "id": "38eaf1b5-e7b8-49d7-b3d9-7afcc51f6631",
+            "label": "Low (< 60)",
+            "value": "Low (< 60)"
+          },
+          {
+            "id": "260edcfd-93ad-4a49-84e0-8099a3a2a3eb",
+            "label": "Normal (60 - 100)",
+            "value": "Normal (60 - 100)"
+          },
+          {
+            "id": "f20dacaf-a26a-407d-8876-d5efa29611d9",
+            "label": "High (> 101)",
+            "value": "High (> 101)"
+          }
+        ],
+        "uuid": "260ee7d3-0bd8-41cd-888d-5904263fe519",
+        "isEndBlock": false,
+        "nextBlockId": "c57a23a4-619f-46ee-99ab-f1bba4cad3f2",
+        "navigationRules": [],
+        "validationRules": [
+          {
+            "message": "This field is required",
+            "operator": "isNotEmpty",
+            "severity": "error"
+          }
+        ],
+        "isEndBlockManual": false,
+        "autoContinueOnSelect": true,
+        "showContinueButton": false
+      },
+      {
+        "type": "optionCards",
+        "fieldName": "selectablebox9k9qbm",
+        "label": "Have you ever been diagnosed with any of the following?",
+        "description": "Select all that apply",
+        "multiSelect": true,
+        "required": true,
+        "cardStyle": "list",
+        "indicator": "left",
+        "columns": 0,
+        "splitLabelAtDash": false,
+        "note": "",
+        "noteTone": "warning",
+        "warningColor": "",
+        "warningSurface": "",
+        "defaultValue": "",
+        "options": [
+          {
+            "id": "38eaf1b5-e7b8-49d7-b3d9-7afcc51f6630",
+            "label": "None of the below",
+            "value": "None",
+            "exclusiveAutoSubmit": true
+          },
+          {
+            "id": "38eaf1b5-e7b8-49d7-b3d9-7afcc51f6631",
+            "label": "Type 2 diabetes",
+            "value": "Type 2 diabetes"
+          },
+          {
+            "id": "8700ab5a-6c4e-49df-bba4-38afc7a506ca",
+            "label": "Prediabetes",
+            "value": "Prediabetes"
+          },
+          {
+            "id": "077907f4-5568-49e2-b28c-2d3f4183a40e",
+            "label": "Thyroid disease (hypo/hyper)",
+            "value": "Thyroid disease (hypo/hyper)"
+          },
+          {
+            "id": "94aaa428-5259-4ce0-bd11-770d1fcd5676",
+            "label": "Pancreatitis or history of pancreatic problems",
+            "value": "Pancreatitis or history of pancreatic problems"
+          },
+          {
+            "id": "547917e8-3f33-4ac5-9ff5-5b18f3b3bc01",
+            "label": "Cancer",
+            "value": "Cancer"
+          },
+          {
+            "id": "411f34f6-168b-425b-ad40-d386f9f66116",
+            "label": "Severe gastrointestinal disease",
+            "value": "Severe gastrointestinal disease"
+          },
+          {
+            "id": "d2b0fe49-dabc-4572-bfe6-603bf349dfe0",
+            "label": "Gallbladder disease",
+            "value": "Gallbladder disease"
+          },
+          {
+            "id": "4d59e19b-0fc4-4c77-be76-9c693dcf3589",
+            "label": "Kidney disease",
+            "value": "Kidney disease"
+          },
+          {
+            "id": "af6f2f2e-c68d-4cfd-ae61-f032f6f11812",
+            "label": "Liver disease",
+            "value": "Liver disease"
+          },
+          {
+            "id": "52850ea1-8bef-4316-b0c1-6741e7d3ea62",
+            "label": "Heart disease or prior heart attack",
+            "value": "Heart disease or prior heart attack"
+          },
+          {
+            "id": "2e2e3671-8259-4092-82b3-b125bd03bbfc",
+            "label": "Eating disorder (past or present)",
+            "value": "Eating disorder (past or present"
+          }
+        ],
+        "uuid": "c57a23a4-619f-46ee-99ab-f1bba4cad3f2",
+        "isEndBlock": false,
+        "nextBlockId": "ec1e6dde-094e-4c1f-8a80-426d95b0a18e",
+        "navigationRules": [
+          {
+            "target": "195ab4e6-5ce2-4a6e-852c-d18b5b5d0ea6",
+            "condition": "selectablebox9k9qbm == \"Cancer\""
+          }
+        ],
+        "validationRules": [
+          {
+            "message": "This field is required",
+            "operator": "isNotEmpty",
+            "severity": "error"
+          },
+          {
+            "field": "selectablebox9k9qbm",
+            "value": "Pancreatitis or history of pancreatic problems",
+            "message": "Flag for clinician review",
+            "operator": "==",
+            "severity": "warning"
+          },
+          {
+            "field": "selectablebox9k9qbm",
+            "value": "Severe gastrointestinal disease",
+            "message": "Flag for clinician review",
+            "operator": "==",
+            "severity": "warning"
+          }
+        ]
+      },
+      {
+        "type": "optionCards",
+        "fieldName": "selectableboxsvoe7x",
+        "label": "Do you currently experience any symptoms that limit your ability to tolerate standard, commercially available GLP-1 medication doses and may require individualized or adjusted dosing?",
+        "description": "Select all that apply.",
+        "multiSelect": true,
+        "required": true,
+        "cardStyle": "list",
+        "indicator": "left",
+        "columns": 0,
+        "splitLabelAtDash": true,
+        "note": "",
+        "noteTone": "warning",
+        "warningColor": "",
+        "warningSurface": "",
+        "defaultValue": "",
+        "options": [
+          {
+            "id": "360c5b30-9aa9-4063-b50d-e3eabb9207b7",
+            "label": "None of the below",
+            "value": "None of the below",
+            "exclusiveAutoSubmit": true
+          },
+          {
+            "id": "38eaf1b5-e7b8-49d7-b3d9-7afcc51f6630",
+            "label": "Fatigue – Ongoing tiredness or reduced energy",
+            "value": "Fatigue – Ongoing tiredness or reduced energy"
+          },
+          {
+            "id": "38eaf1b5-e7b8-49d7-b3d9-7afcc51f6631",
+            "label": "Nausea – Feeling sick to your stomach",
+            "value": "Nausea – Feeling sick to your stomach"
+          },
+          {
+            "id": "419fa60a-d9b3-43d6-ae85-c2b4a454c4e6",
+            "label": "Gastrointestinal discomfort – Stomach pain, bloating, or cramping",
+            "value": "Gastrointestinal discomfort – Stomach pain, bloating, or cramping"
+          },
+          {
+            "id": "fbed9cde-364d-45b2-b91e-ffc45d3bfc64",
+            "label": "Low energy or sluggishness – Feeling slowed down or weak",
+            "value": "Low energy or sluggishness – Feeling slowed down or weak"
+          },
+          {
+            "id": "81cadb97-1c00-4495-93f2-be7dd3401cbc",
+            "label": "Brain fog or difficulty concentrating – Trouble focusing or thinking clearly",
+            "value": "Brain fog or difficulty concentrating – Trouble focusing or thinking clearly"
+          },
+          {
+            "id": "5292c3c4-9e69-4f66-a3e9-1bc4a20e7548",
+            "label": "Irritability or mood changes – Mood swings or increased irritability",
+            "value": "Irritability or mood changes – Mood swings or increased irritability"
+          },
+          {
+            "id": "480383f7-f138-421a-b6b2-5114d05336fd",
+            "label": "Sleep disturbance – Trouble falling or staying asleep",
+            "value": "Sleep disturbance – Trouble falling or staying asleep"
+          },
+          {
+            "id": "6bb00f3d-345c-4c91-a8ae-ca83036bd55c",
+            "label": "Headaches – Frequent or persistent headaches",
+            "value": "Headaches – Frequent or persistent headaches"
+          },
+          {
+            "id": "df2b9582-ce7d-4af8-b8f1-d134e8ad89e6",
+            "label": "Muscle weakness or soreness – Unusual muscle fatigue or body aches",
+            "value": "Muscle weakness or soreness – Unusual muscle fatigue or body aches"
+          },
+          {
+            "id": "58025933-289a-4835-84a0-9590bb981e38",
+            "label": "Tingling or numbness in hands or feet – “Pins and needles” sensation",
+            "value": "Tingling or numbness in hands or feet – “Pins and needles” sensation"
+          },
+          {
+            "id": "ce737127-68bf-45a4-8cca-04e9dea45b47",
+            "label": "Multiple symptoms affecting tolerance",
+            "value": "Multiple symptoms affecting tolerance"
+          }
+        ],
+        "uuid": "ec1e6dde-094e-4c1f-8a80-426d95b0a18e",
+        "navigationRules": [],
+        "validationRules": [
+          {
+            "message": "This field is required",
+            "operator": "isNotEmpty",
+            "severity": "error"
+          }
+        ],
+        "isEndBlock": false,
+        "isEndBlockManual": false,
+        "nextBlockId": "78ad86a6-3217-49d3-9fe5-8bc70142ff54"
+      },
+      {
+        "type": "textfield",
+        "uuid": "195ab4e6-5ce2-4a6e-852c-d18b5b5d0ea6",
+        "label": "You have/had a cancer diagnosis.",
+        "fieldName": "textInputm8elfa",
+        "isEndBlock": false,
+        "description": "Please list the type of cancer and stage, if active. Don’t worry about typos.",
+        "nextBlockId": "ec1e6dde-094e-4c1f-8a80-426d95b0a18e",
+        "placeholder": "Type your answer here",
+        "defaultValue": null,
+        "navigationRules": [],
+        "validationRules": [
+          {
+            "message": "This field is required",
+            "operator": "isNotEmpty",
+            "severity": "error"
+          }
+        ]
+      },
+      {
+        "type": "optionCards",
+        "fieldName": "selectableboxxxc11f",
+        "label": "Do you or your family have a history of Medullary Thyroid Cancer (MTC) or Multiple endocrine neoplasia type 2 (MEN2)?",
+        "description": "",
+        "multiSelect": false,
+        "required": true,
+        "cardStyle": "row",
+        "indicator": "none",
+        "columns": 0,
+        "splitLabelAtDash": false,
+        "note": "",
+        "noteTone": "warning",
+        "warningColor": "#A8592B",
+        "warningSurface": "#FDF5ED",
+        "defaultValue": "",
+        "options": [
+          {
+            "id": "b6abd911-1ea9-408d-8f45-5cd57f4051d8",
+            "label": "I'm unsure",
+            "value": "I'm unsure",
+            "icon": "question"
+          },
+          {
+            "id": "38eaf1b5-e7b8-49d7-b3d9-7afcc51f6630",
+            "label": "No",
+            "value": "No",
+            "icon": "x"
+          },
+          {
+            "id": "38eaf1b5-e7b8-49d7-b3d9-7afcc51f6631",
+            "label": "Yes",
+            "value": "Yes",
+            "icon": "check"
+          }
+        ],
+        "uuid": "78ad86a6-3217-49d3-9fe5-8bc70142ff54",
+        "isEndBlock": false,
+        "nextBlockId": "f7b564af-24ff-46e2-a231-8b5da342bb7e",
+        "navigationRules": [],
+        "validationRules": [
+          {
+            "value": "Yes",
+            "message": "Disqualifier for treatment",
+            "operator": "==",
+            "severity": "error"
+          },
+          {
+            "message": "This field is required",
+            "operator": "isNotEmpty",
+            "severity": "error"
+          }
+        ],
+        "autoContinueOnSelect": true,
+        "showContinueButton": false
+      },
+      {
+        "type": "optionCards",
+        "fieldName": "selectableboxcgsur7",
+        "label": "Have you ever had weight loss surgery (bariatric or gastric)?",
+        "description": "",
+        "multiSelect": false,
+        "required": true,
+        "cardStyle": "row",
+        "indicator": "none",
+        "columns": 0,
+        "splitLabelAtDash": false,
+        "note": "",
+        "noteTone": "warning",
+        "warningColor": "#A8592B",
+        "warningSurface": "#FDF5ED",
+        "defaultValue": "",
+        "options": [
+          {
+            "id": "38eaf1b5-e7b8-49d7-b3d9-7afcc51f6630",
+            "label": "No",
+            "value": "No",
+            "icon": "x"
+          },
+          {
+            "id": "38eaf1b5-e7b8-49d7-b3d9-7afcc51f6631",
+            "label": "Yes",
+            "value": "Yes",
+            "icon": "check"
+          }
+        ],
+        "uuid": "f7b564af-24ff-46e2-a231-8b5da342bb7e",
+        "isEndBlock": false,
+        "nextBlockId": "722af513-5c9f-4126-a336-63fd0e99de42",
+        "navigationRules": [
+          {
+            "target": "722af513-5c9f-4126-a336-63fd0e99de42",
+            "condition": "selectableboxcgsur7 == \"Yes\""
+          },
+          {
+            "isPage": false,
+            "target": "c1b53be8-a82c-4139-9d9a-67fc800dfae6",
+            "condition": "selectableboxcgsur7 == \"No\""
+          }
+        ],
+        "validationRules": [
+          {
+            "message": "This field is required",
+            "operator": "isNotEmpty",
+            "severity": "error"
+          }
+        ],
+        "autoContinueOnSelect": true,
+        "showContinueButton": false
+      },
+      {
+        "type": "textfield",
+        "uuid": "722af513-5c9f-4126-a336-63fd0e99de42",
+        "label": "You’ve had weight loss surgery.",
+        "fieldName": "textInputdjiiy6",
+        "isEndBlock": false,
+        "description": "Please list your weight loss surgery(s) and the date(s). Don’t worry about typos.",
+        "nextBlockId": "c1b53be8-a82c-4139-9d9a-67fc800dfae6",
+        "placeholder": "Type your answer here",
+        "defaultValue": null,
+        "navigationRules": [],
+        "validationRules": [
+          {
+            "message": "This field is required",
+            "operator": "isNotEmpty",
+            "severity": "error"
+          }
+        ]
+      },
+      {
+        "type": "optionCards",
+        "fieldName": "selectableboxkalpc4",
+        "label": "Are you taking any prescribed or over the counter medications?",
+        "description": "",
+        "multiSelect": false,
+        "required": true,
+        "cardStyle": "row",
+        "indicator": "none",
+        "columns": 0,
+        "splitLabelAtDash": false,
+        "note": "",
+        "noteTone": "warning",
+        "warningColor": "#A8592B",
+        "warningSurface": "#FDF5ED",
+        "defaultValue": "",
+        "options": [
+          {
+            "id": "38eaf1b5-e7b8-49d7-b3d9-7afcc51f6630",
+            "label": "No",
+            "value": "No",
+            "icon": "x"
+          },
+          {
+            "id": "38eaf1b5-e7b8-49d7-b3d9-7afcc51f6631",
+            "label": "Yes",
+            "value": "Yes",
+            "icon": "check"
+          }
+        ],
+        "uuid": "c1b53be8-a82c-4139-9d9a-67fc800dfae6",
+        "isEndBlock": false,
+        "nextBlockId": "63d3c3a5-0090-4db3-a1a8-ea508db537e8",
+        "navigationRules": [
+          {
+            "target": "63d3c3a5-0090-4db3-a1a8-ea508db537e8",
+            "condition": "selectableboxkalpc4 == \"Yes\""
+          },
+          {
+            "target": "d511ffea-da3e-4304-9829-33dfbddd4165",
+            "condition": "selectableboxkalpc4 == \"No\""
+          }
+        ],
+        "validationRules": [
+          {
+            "message": "This field is required",
+            "operator": "isNotEmpty",
+            "severity": "error"
+          }
+        ],
+        "autoContinueOnSelect": true,
+        "showContinueButton": false
+      },
+      {
+        "rows": 4,
+        "type": "textarea",
+        "uuid": "63d3c3a5-0090-4db3-a1a8-ea508db537e8",
+        "label": "Please list the medication name, dose, and frequency.",
+        "fieldName": "textareasxf576",
+        "isEndBlock": false,
+        "description": null,
+        "nextBlockId": "d511ffea-da3e-4304-9829-33dfbddd4165",
+        "placeholder": "Type your answer here",
+        "defaultValue": null,
+        "navigationRules": []
+      },
+      {
+        "type": "optionCards",
+        "fieldName": "selectableboxx4rpzi",
+        "label": "Any known allergic or adverse reaction to a medication?",
+        "description": "",
+        "multiSelect": false,
+        "required": true,
+        "cardStyle": "row",
+        "indicator": "none",
+        "columns": 0,
+        "splitLabelAtDash": false,
+        "note": "",
+        "noteTone": "warning",
+        "warningColor": "#A8592B",
+        "warningSurface": "#FDF5ED",
+        "defaultValue": "",
+        "options": [
+          {
+            "id": "38eaf1b5-e7b8-49d7-b3d9-7afcc51f6630",
+            "label": "No",
+            "value": "No",
+            "icon": "x"
+          },
+          {
+            "id": "38eaf1b5-e7b8-49d7-b3d9-7afcc51f6631",
+            "label": "Yes",
+            "value": "Yes",
+            "icon": "check"
+          }
+        ],
+        "uuid": "d511ffea-da3e-4304-9829-33dfbddd4165",
+        "isEndBlock": false,
+        "nextBlockId": "1df57f2d-3690-40a5-b60a-f677ba63b5d1",
+        "navigationRules": [
+          {
+            "target": "6153b016-47ab-471f-9e7e-111f14e06152",
+            "condition": "selectableboxx4rpzi == \"Yes\""
+          },
+          {
+            "isPage": false,
+            "target": "1df57f2d-3690-40a5-b60a-f677ba63b5d1",
+            "condition": "selectableboxx4rpzi == \"No\""
+          }
+        ],
+        "validationRules": [
+          {
+            "message": "This field is required",
+            "operator": "isNotEmpty",
+            "severity": "error"
+          }
+        ],
+        "autoContinueOnSelect": true,
+        "showContinueButton": false
+      },
+      {
+        "type": "optionCards",
+        "fieldName": "selectablebox3n0joe",
+        "label": "Are you sensitive to vitamin B12 or B6?",
+        "description": "If you have this sensitivity, we can provide the same powerful weight loss medications via an alternative formulation that works for you.",
+        "multiSelect": false,
+        "required": true,
+        "cardStyle": "list",
+        "indicator": "left",
+        "columns": 0,
+        "splitLabelAtDash": false,
+        "note": "",
+        "noteTone": "warning",
+        "warningColor": "",
+        "warningSurface": "",
+        "defaultValue": "",
+        "options": [
+          {
+            "id": "38eaf1b5-e7b8-49d7-b3d9-7afcc51f6631",
+            "label": "No",
+            "value": "No"
+          },
+          {
+            "id": "38eaf1b5-e7b8-49d7-b3d9-7afcc51f6630",
+            "label": "Yes",
+            "value": "Yes"
+          },
+          {
+            "id": "441d9825-f434-43e8-95bf-98e786e5e541",
+            "label": "I'm not sure",
+            "value": "I'm not sure"
+          }
+        ],
+        "uuid": "64eaab24-5828-4049-b950-9d48b998d394",
+        "isEndBlock": false,
+        "nextBlockId": "05393b94-c1b1-4cf4-9d3b-4232d46adb57",
+        "navigationRules": [],
+        "validationRules": [
+          {
+            "message": "This field is required",
+            "operator": "isNotEmpty",
+            "severity": "error"
+          }
+        ],
+        "isEndBlockManual": false,
+        "autoContinueOnSelect": true,
+        "showContinueButton": false
+      },
+      {
+        "rows": 4,
+        "type": "textarea",
+        "uuid": "6153b016-47ab-471f-9e7e-111f14e06152",
+        "label": "You have a known allergic or adverse reaction to a medication.",
+        "fieldName": "textareaz7t1ca",
+        "isEndBlock": false,
+        "description": "Please list the medications and the allergic/adverse reactions. Don’t worry about typos.",
+        "nextBlockId": "1df57f2d-3690-40a5-b60a-f677ba63b5d1",
+        "placeholder": "Type your detailed answer here",
+        "defaultValue": null,
+        "navigationRules": [],
+        "validationRules": [
+          {
+            "message": "This field is required",
+            "operator": "isNotEmpty",
+            "severity": "error"
+          }
+        ],
+        "isEndBlockManual": false
+      },
+      {
+        "type": "optionCards",
+        "fieldName": "selectablebox138t8r",
+        "label": "Have you taken a GLP-1 within the past 6 months (brand name or compounded)?",
+        "description": "",
+        "multiSelect": false,
+        "required": true,
+        "cardStyle": "list",
+        "indicator": "left",
+        "columns": 0,
+        "splitLabelAtDash": false,
+        "note": "",
+        "noteTone": "warning",
+        "warningColor": "",
+        "warningSurface": "",
+        "defaultValue": "",
+        "options": [
+          {
+            "id": "38eaf1b5-e7b8-49d7-b3d9-7afcc51f6630",
+            "label": "No",
+            "value": "No"
+          },
+          {
+            "id": "38eaf1b5-e7b8-49d7-b3d9-7afcc51f6631",
+            "label": "Yes, tirzepatide (like Zepbound® or Mounjaro®)",
+            "value": "Yes, tirzepatide (like Zepbound or Mounjaro)"
+          },
+          {
+            "id": "31fa242e-6ad3-428a-a11c-3c5a700895af",
+            "label": "Yes, semaglutide (like Ozempic®, Wegovy®, or Rybelsus®)",
+            "value": "Yes, semaglutide (like Ozempic, Wegovy, or Rybelsus)"
+          }
+        ],
+        "uuid": "05393b94-c1b1-4cf4-9d3b-4232d46adb57",
+        "isEndBlock": false,
+        "navigationRules": [
+          {
+            "target": "1f016a62-2238-4607-b0fa-24df672b23fa",
+            "condition": "selectablebox138t8r == \"Yes, tirzepatide (like Zepbound or Mounjaro)\""
+          },
+          {
+            "target": "3540e459-dc1e-4daa-bc0a-51c0513f8ccc",
+            "condition": "selectablebox138t8r == \"Yes, semaglutide (like Ozempic, Wegovy, or Rybelsus)\""
+          },
+          {
+            "isPage": false,
+            "target": "0777ad91-5073-4fa2-a835-4494c84e901f",
+            "condition": "selectablebox138t8r == \"No\""
+          }
+        ],
+        "validationRules": [
+          {
+            "message": "This field is required",
+            "operator": "isNotEmpty",
+            "severity": "error"
+          }
+        ],
+        "autoContinueOnSelect": true,
+        "showContinueButton": false
+      },
+      {
+        "type": "optionCards",
+        "fieldName": "selectablebox7htccq",
+        "label": "What Semaglutide dose did you last take?",
+        "description": "Please select the last dose taken.",
+        "multiSelect": false,
+        "required": true,
+        "cardStyle": "list",
+        "indicator": "left",
+        "columns": 0,
+        "splitLabelAtDash": false,
+        "note": "",
+        "noteTone": "warning",
+        "warningColor": "",
+        "warningSurface": "",
+        "defaultValue": "",
+        "options": [
+          {
+            "id": "38eaf1b5-e7b8-49d7-b3d9-7afcc51f6630",
+            "label": "0.25 mg",
+            "value": "0.25 mg"
+          },
+          {
+            "id": "38eaf1b5-e7b8-49d7-b3d9-7afcc51f6631",
+            "label": "0.5 mg",
+            "value": "0.5 mg"
+          },
+          {
+            "id": "1e9f136e-09a5-4f39-a43d-8b7190ca349e",
+            "label": "1 mg",
+            "value": "1 mg"
+          },
+          {
+            "id": "6f54f844-7d0f-48ae-a9db-3edb24c7fe1f",
+            "label": "1.5 mg",
+            "value": "1.5 mg"
+          },
+          {
+            "id": "9f90a354-0154-4118-a433-1fa201293233",
+            "label": "2.5 mg",
+            "value": "2.5 mg"
+          },
+          {
+            "id": "48e66563-ab9a-4b77-b7b1-578d5ca39967",
+            "label": "Other, or I’m unsure.",
+            "value": "Other, or I’m unsure."
+          }
+        ],
+        "uuid": "3540e459-dc1e-4daa-bc0a-51c0513f8ccc",
+        "isEndBlock": false,
+        "nextBlockId": "21a669a4-5d81-42a8-9c42-7a8f8f6c0fde",
+        "navigationRules": [
+          {
+            "isPage": false,
+            "target": "faa9eaf3-443c-4959-b48f-1ba89c1d809c",
+            "condition": "selectablebox7htccq == \"Other, or I’m unsure.\""
+          },
+          {
+            "isPage": false,
+            "target": "db23ad39-270d-4942-83b1-325b9184aa93",
+            "condition": "selectablebox7htccq != \"Other, or I’m unsure.\""
+          }
+        ],
+        "validationRules": [
+          {
+            "message": "This field is required",
+            "operator": "isNotEmpty",
+            "severity": "error"
+          }
+        ],
+        "isEndBlockManual": false,
+        "autoContinueOnSelect": true,
+        "showContinueButton": false
+      },
+      {
+        "type": "optionCards",
+        "fieldName": "selectableboxyorooi",
+        "label": "What Tirzepatide dose did you last take?",
+        "description": "Please select the last dose taken.",
+        "multiSelect": false,
+        "required": true,
+        "cardStyle": "list",
+        "indicator": "left",
+        "columns": 0,
+        "splitLabelAtDash": false,
+        "note": "",
+        "noteTone": "warning",
+        "warningColor": "",
+        "warningSurface": "",
+        "defaultValue": "",
+        "options": [
+          {
+            "id": "38eaf1b5-e7b8-49d7-b3d9-7afcc51f6630",
+            "label": "2.5 mg",
+            "value": "2.5 mg"
+          },
+          {
+            "id": "38eaf1b5-e7b8-49d7-b3d9-7afcc51f6631",
+            "label": "5 mg",
+            "value": "5 mg"
+          },
+          {
+            "id": "f7985a94-5898-437b-babc-bd537e2c1b78",
+            "label": "7.5 mg",
+            "value": "7.5 mg"
+          },
+          {
+            "id": "495aa7a8-0acc-48d3-acd3-760f5d7acafc",
+            "label": "10 mg",
+            "value": "10 mg"
+          },
+          {
+            "id": "3d0ec9a1-1f53-4364-bc60-f16d0773b847",
+            "label": "12.5 mg",
+            "value": "12.5 mg"
+          },
+          {
+            "id": "0c1cf6de-8128-4dde-aef3-454d7b7e5192",
+            "label": "15 mg",
+            "value": "15 mg"
+          },
+          {
+            "id": "640d626f-aef4-48a4-9264-c97a785f725f",
+            "label": "Other, or I’m unsure",
+            "value": "Other, or I’m unsure"
+          }
+        ],
+        "uuid": "1f016a62-2238-4607-b0fa-24df672b23fa",
+        "isEndBlock": false,
+        "nextBlockId": "db23ad39-270d-4942-83b1-325b9184aa93",
+        "navigationRules": [
+          {
+            "target": "faa9eaf3-443c-4959-b48f-1ba89c1d809c",
+            "condition": "selectableboxyorooi == \"Other, or I’m unsure\""
+          }
+        ],
+        "validationRules": [
+          {
+            "message": "This field is required",
+            "operator": "isNotEmpty",
+            "severity": "error"
+          }
+        ],
+        "isEndBlockManual": false,
+        "autoContinueOnSelect": true,
+        "showContinueButton": false
+      },
+      {
+        "type": "optionCards",
+        "fieldName": "selectableboxp8rwcg",
+        "label": "When did you last take your last dose?",
+        "description": "",
+        "multiSelect": false,
+        "required": true,
+        "cardStyle": "list",
+        "indicator": "left",
+        "columns": 0,
+        "splitLabelAtDash": false,
+        "note": "",
+        "noteTone": "warning",
+        "warningColor": "",
+        "warningSurface": "",
+        "defaultValue": "",
+        "options": [
+          {
+            "id": "38eaf1b5-e7b8-49d7-b3d9-7afcc51f6630",
+            "label": "1 month ago or less",
+            "value": "1 month ago or less"
+          },
+          {
+            "id": "38eaf1b5-e7b8-49d7-b3d9-7afcc51f6631",
+            "label": "2 months ago",
+            "value": "2 months ago"
+          },
+          {
+            "id": "910702c4-c663-4ea9-a389-59af7bf830c7",
+            "label": "3 months ago",
+            "value": "3 months ago"
+          },
+          {
+            "id": "fd9deb44-812e-45de-9b55-e43b685431ec",
+            "label": "4+ months ago",
+            "value": "4+ months ago"
+          }
+        ],
+        "uuid": "db23ad39-270d-4942-83b1-325b9184aa93",
+        "isEndBlock": false,
+        "nextBlockId": "5e57a074-43d5-4890-a3d1-a642f71105b2",
+        "navigationRules": [],
+        "validationRules": [
+          {
+            "message": "This field is required",
+            "operator": "isNotEmpty",
+            "severity": "error"
+          }
+        ],
+        "isEndBlockManual": false,
+        "autoContinueOnSelect": true,
+        "showContinueButton": false
+      },
+      {
+        "type": "optionCards",
+        "fieldName": "selectablebox72bta9",
+        "label": "What is your dosing preference?",
+        "description": "Your clinician reviews your preference, but final dosing is based on their evaluation.",
+        "multiSelect": false,
+        "required": true,
+        "cardStyle": "list",
+        "indicator": "left",
+        "columns": 0,
+        "splitLabelAtDash": false,
+        "note": "",
+        "noteTone": "warning",
+        "warningColor": "",
+        "warningSurface": "",
+        "defaultValue": "",
+        "options": [
+          {
+            "id": "38eaf1b5-e7b8-49d7-b3d9-7afcc51f6630",
+            "label": "Maintain my dose or equivalent",
+            "value": "Maintain my dose or equivalent"
+          },
+          {
+            "id": "38eaf1b5-e7b8-49d7-b3d9-7afcc51f6631",
+            "label": "Increase my dose",
+            "value": "Increase my dose"
+          },
+          {
+            "id": "ae79b0bf-dcc8-409f-ab06-b765feec9e6b",
+            "label": "Decrease my dose",
+            "value": "Decrease my dose"
+          }
+        ],
+        "uuid": "5e57a074-43d5-4890-a3d1-a642f71105b2",
+        "isEndBlock": false,
+        "nextBlockId": "bf6b661f-a766-40ab-898b-5121e09f3632",
+        "navigationRules": [],
+        "validationRules": [
+          {
+            "message": "This field is required",
+            "operator": "isNotEmpty",
+            "severity": "error"
+          }
+        ],
+        "isEndBlockManual": false,
+        "autoContinueOnSelect": true,
+        "showContinueButton": false
+      },
+      {
+        "type": "optionCards",
+        "fieldName": "selectableboxxillv4",
+        "label": "Did you experience any side effects from the GLP-1 medication?",
+        "description": "",
+        "multiSelect": false,
+        "required": true,
+        "cardStyle": "row",
+        "indicator": "none",
+        "columns": 0,
+        "splitLabelAtDash": false,
+        "note": "",
+        "noteTone": "warning",
+        "warningColor": "#A8592B",
+        "warningSurface": "#FDF5ED",
+        "defaultValue": "",
+        "options": [
+          {
+            "id": "38eaf1b5-e7b8-49d7-b3d9-7afcc51f6630",
+            "label": "No",
+            "value": "No",
+            "icon": "x"
+          },
+          {
+            "id": "38eaf1b5-e7b8-49d7-b3d9-7afcc51f6631",
+            "label": "Yes",
+            "value": "Yes",
+            "icon": "check"
+          }
+        ],
+        "uuid": "bf6b661f-a766-40ab-898b-5121e09f3632",
+        "isEndBlock": false,
+        "nextBlockId": "21a669a4-5d81-42a8-9c42-7a8f8f6c0fde",
+        "navigationRules": [
+          {
+            "target": "78437b59-d3ac-4633-9f1c-5844636bca19",
+            "condition": "selectableboxxillv4 == \"Yes\""
+          }
+        ],
+        "validationRules": [
+          {
+            "message": "This field is required",
+            "operator": "isNotEmpty",
+            "severity": "error"
+          }
+        ],
+        "isEndBlockManual": false,
+        "autoContinueOnSelect": true,
+        "showContinueButton": false
+      },
+      {
+        "type": "optionCards",
+        "fieldName": "selectableboxii6xe7",
+        "label": "Is there anything else you want to share with your clinician?",
+        "description": "",
+        "multiSelect": false,
+        "required": true,
+        "cardStyle": "row",
+        "indicator": "none",
+        "columns": 0,
+        "splitLabelAtDash": false,
+        "note": "",
+        "noteTone": "warning",
+        "warningColor": "#A8592B",
+        "warningSurface": "#FDF5ED",
+        "defaultValue": "",
+        "options": [
+          {
+            "id": "38eaf1b5-e7b8-49d7-b3d9-7afcc51f6630",
+            "label": "No",
+            "value": "No",
+            "icon": "x"
+          },
+          {
+            "id": "38eaf1b5-e7b8-49d7-b3d9-7afcc51f6631",
+            "label": "Yes",
+            "value": "Yes",
+            "icon": "check"
+          }
+        ],
+        "uuid": "21a669a4-5d81-42a8-9c42-7a8f8f6c0fde",
+        "isEndBlock": false,
+        "nextBlockId": "f4222b78-cba7-4169-bbfa-c9c871ea853a",
+        "navigationRules": [
+          {
+            "target": "296c28f9-5ed6-4e38-8481-67ed4a721275",
+            "condition": "selectableboxii6xe7 == \"Yes\""
+          }
+        ],
+        "validationRules": [
+          {
+            "message": "This field is required",
+            "operator": "isNotEmpty",
+            "severity": "error"
+          }
+        ],
+        "isEndBlockManual": false,
+        "autoContinueOnSelect": true
+      },
+      {
+        "rows": 4,
+        "type": "textarea",
+        "uuid": "296c28f9-5ed6-4e38-8481-67ed4a721275",
+        "label": "Got it. What else do you want your clinician to know about you?",
+        "fieldName": "textareakmml89",
+        "isEndBlock": false,
+        "description": "Please share your other information. Don’t worry about typos.",
+        "nextBlockId": "f4222b78-cba7-4169-bbfa-c9c871ea853a",
+        "placeholder": "Type your detailed answer here",
+        "defaultValue": null,
+        "navigationRules": [],
+        "validationRules": [
+          {
+            "message": "This field is required",
+            "operator": "isNotEmpty",
+            "severity": "error"
+          }
+        ],
+        "isEndBlockManual": false
+      },
+      {
+        "type": "optionCards",
+        "fieldName": "selectablebox2tbsa3",
+        "label": "Here are your recommended GLP-1 medication options.",
+        "description": "Which medication do you prefer?",
+        "multiSelect": false,
+        "required": true,
+        "cardStyle": "list",
+        "indicator": "right",
+        "columns": 0,
+        "splitLabelAtDash": false,
+        "note": "",
+        "noteTone": "warning",
+        "warningColor": "",
+        "warningSurface": "",
+        "defaultValue": "",
+        "options": [
+          {
+            "id": "38eaf1b5-e7b8-49d7-b3d9-7afcc51f6630",
+            "label": "Compounded Tirzepatide",
+            "value": "Compounded Tirzepatide",
+            "imageUrl": "https://d2pmrhc7rl7s59.cloudfront.net/merchants/25/gallery/rYncgA7UvFbogjDYj2581j5TLZVnaAN1EzkOCJV9.png",
+            "badge": "Most chosen",
+            "description": "Dual-action GLP-1 + GIP · weekly injection"
+          },
+          {
+            "id": "38eaf1b5-e7b8-49d7-b3d9-7afcc51f6631",
+            "label": "Compounded Semaglutide",
+            "value": "Compounded Semaglutide",
+            "imageUrl": "https://d2pmrhc7rl7s59.cloudfront.net/merchants/25/gallery/rYncgA7UvFbogjDYj2581j5TLZVnaAN1EzkOCJV9.png",
+            "description": "GLP-1 · weekly injection"
+          },
+          {
+            "id": "0ae61cef-c9c2-4208-9864-0c2c455ad1aa",
+            "label": "I’d prefer a clinician’s recommendation.",
+            "value": "I’d prefer a clinician’s recommendation.",
+            "icon": "stethoscope",
+            "description": "We’ll match you based on your answers"
+          }
+        ],
+        "uuid": "0777ad91-5073-4fa2-a835-4494c84e901f",
+        "navigationRules": [],
+        "validationRules": [
+          {
+            "message": "This field is required",
+            "operator": "isNotEmpty",
+            "severity": "error"
+          }
+        ],
+        "isEndBlock": false,
+        "isEndBlockManual": false,
+        "nextBlockId": "63c4f311-5941-4dfe-a2e3-32ab32309aba",
+        "autoContinueOnSelect": true,
+        "showContinueButton": false
+      },
+      {
+        "type": "testimonial",
+        "uuid": "63c4f311-5941-4dfe-a2e3-32ab32309aba",
+        "heading": "",
+        "imageUrl": "https://d2pmrhc7rl7s59.cloudfront.net/merchants/25/gallery/LpKI8nlbAKdp2pdRiynqwwozOUZOwqKLuKv1cnj9.jpg",
+        "imageAlt": "A patient doing yoga on a beach",
+        "stars": 5,
+        "quote": "I finally stopped thinking about food all day. Down 34 lbs, and I actually enjoy cooking again.",
+        "author": "Maria G. · Tampa, FL · 7 months on tirzepatide",
+        "stats": [
+          {
+            "value": "4.8/5",
+            "label": "Patient rating"
+          },
+          {
+            "value": "50k+",
+            "label": "Patients treated"
+          },
+          {
+            "value": "<24h",
+            "label": "Provider review"
+          }
+        ],
+        "footnote": "Real patient. Individual results vary.",
+        "hidePrivacy": true,
+        "navigationRules": [],
+        "isEndBlock": false,
+        "nextBlockId": "21a669a4-5d81-42a8-9c42-7a8f8f6c0fde"
+      },
+      {
+        "type": "textfield",
+        "uuid": "faa9eaf3-443c-4959-b48f-1ba89c1d809c",
+        "label": "Okay. You're unsure about the dose.",
+        "fieldName": "textInputgkcu1u",
+        "isEndBlock": false,
+        "description": "Please type in the dose printed on your prescription label.",
+        "nextBlockId": "db23ad39-270d-4942-83b1-325b9184aa93",
+        "placeholder": null,
+        "defaultValue": null,
+        "navigationRules": [],
+        "validationRules": [
+          {
+            "message": "This field is required",
+            "operator": "isNotEmpty",
+            "severity": "error"
+          }
+        ],
+        "isEndBlockManual": false
+      },
+      {
+        "rows": 4,
+        "type": "textarea",
+        "uuid": "78437b59-d3ac-4633-9f1c-5844636bca19",
+        "label": "You’ve had side effects from GLP-1 medication.",
+        "fieldName": "textareayfaf8p",
+        "isEndBlock": false,
+        "description": "Please provide the side effect(s) you experienced. Don’t worry about typos.",
+        "nextBlockId": "21a669a4-5d81-42a8-9c42-7a8f8f6c0fde",
+        "placeholder": "Type your detailed answer here",
+        "defaultValue": null,
+        "navigationRules": [],
+        "validationRules": [
+          {
+            "message": "This field is required",
+            "operator": "isNotEmpty",
+            "severity": "error"
+          }
+        ],
+        "isEndBlockManual": false
+      },
+      {
+        "type": "optionCards",
+        "fieldName": "currentlyPregnantBlock",
+        "label": "Are you currently pregnant, breastfeeding, or planning to become pregnant?",
+        "description": null,
+        "multiSelect": false,
+        "required": true,
+        "cardStyle": "row",
+        "indicator": "none",
+        "columns": 0,
+        "splitLabelAtDash": false,
+        "note": "If you answer Yes, we’ll pause here and suggest safer options — your answers are saved.",
+        "noteTone": "warning",
+        "warningColor": "#A8592B",
+        "warningSurface": "#FDF5ED",
+        "defaultValue": "",
+        "options": [
+          {
+            "id": "38eaf1b5-e7b8-49d7-b3d9-7afcc51f6630",
+            "label": "No",
+            "value": "No",
+            "icon": "x"
+          },
+          {
+            "id": "38eaf1b5-e7b8-49d7-b3d9-7afcc51f6631",
+            "label": "Yes",
+            "value": "Yes",
+            "icon": "check"
+          }
+        ],
+        "uuid": "336cdb1f-3c82-4f55-bd3d-103c4f7aefe7",
+        "navigationRules": [
+          {
+            "target": "7aed1a0d-324c-485f-9374-35cfccbc1d6d",
+            "condition": "currentlyPregnantBlock == \"Yes\""
+          }
+        ],
+        "validationRules": [
+          {
+            "message": "This field is required",
+            "operator": "isNotEmpty",
+            "severity": "error"
+          }
+        ],
+        "isEndBlock": false,
+        "isEndBlockManual": false,
+        "nextBlockId": "6e477042-fe9b-4652-986f-f2c533b6c488"
+      },
+      {
+        "type": "optionCards",
+        "fieldName": "selectableboxj7w5ur",
+        "label": "Do you currently take insulin or other diabetes medications?",
+        "description": "",
+        "multiSelect": false,
+        "required": true,
+        "cardStyle": "row",
+        "indicator": "none",
+        "columns": 0,
+        "splitLabelAtDash": false,
+        "note": "",
+        "noteTone": "warning",
+        "warningColor": "#A8592B",
+        "warningSurface": "#FDF5ED",
+        "defaultValue": "",
+        "options": [
+          {
+            "id": "38eaf1b5-e7b8-49d7-b3d9-7afcc51f6630",
+            "label": "No",
+            "value": "No",
+            "icon": "x"
+          },
+          {
+            "id": "38eaf1b5-e7b8-49d7-b3d9-7afcc51f6631",
+            "label": "Yes",
+            "value": "Yes",
+            "icon": "check"
+          }
+        ],
+        "uuid": "1df57f2d-3690-40a5-b60a-f677ba63b5d1",
+        "isEndBlock": false,
+        "nextBlockId": "64eaab24-5828-4049-b950-9d48b998d394",
+        "navigationRules": [
+          {
+            "target": "a38baea3-5888-428b-98bd-0408a3e68862",
+            "condition": "selectableboxj7w5ur == \"Yes\""
+          }
+        ],
+        "validationRules": [
+          {
+            "message": "This field is required",
+            "operator": "isNotEmpty",
+            "severity": "error"
+          }
+        ],
+        "isEndBlockManual": false,
+        "autoContinueOnSelect": true
+      },
+      {
+        "rows": 4,
+        "type": "textarea",
+        "uuid": "a38baea3-5888-428b-98bd-0408a3e68862",
+        "label": "Please list the medication(s).",
+        "fieldName": "textarealncgrs",
+        "isEndBlock": false,
+        "description": null,
+        "nextBlockId": "64eaab24-5828-4049-b950-9d48b998d394",
+        "placeholder": "Type your detailed answer here",
+        "defaultValue": null,
+        "navigationRules": [],
+        "validationRules": [
+          {
+            "message": "This field is required",
+            "operator": "isNotEmpty",
+            "severity": "error"
+          }
+        ],
+        "isEndBlockManual": false
+      },
+      {
+        "type": "medicalReview",
+        "uuid": "f4222b78-cba7-4169-bbfa-c9c871ea853a",
+        "heading": "Finding your match,",
+        "nameLine": "{NameInformation.firstName}",
+        "showScore": true,
+        "scoreLabel": "Eligibility check",
+        "score": 86,
+        "checklist": [
+          {
+            "title": "Your goal",
+            "detail": "Lose {selectableboxzziytz}"
+          },
+          {
+            "title": "Body metrics",
+            "detail": "BMI {bmi.bmi}"
+          },
+          {
+            "title": "Health history",
+            "detail": "Answers received"
+          }
+        ],
+        "waitingText": "Matching you with a licensed provider in {state|your state}…",
+        "resultText": "Looks like a good match for GLP-1 treatment.",
+        "footer": "Hang tight — your personalized plan is almost ready.",
+        "stepSeconds": 1.2,
+        "advanceSeconds": 7,
+        "hideBack": true,
+        "hidePrivacy": true,
+        "showContinueButton": false,
+        "navigationRules": [],
+        "isEndBlock": false,
+        "nextBlockId": "05281eb9-acf4-44d1-beb8-92422f987030"
+      },
+      {
+        "type": "planSummary",
+        "uuid": "05281eb9-acf4-44d1-beb8-92422f987030",
+        "chipText": "Matched from your answers",
+        "nameLine": "{NameInformation.firstName}’s",
+        "heading": "personalized GLP-1 plan",
+        "subheading": "Selected for you based on",
+        "chips": [
+          {
+            "text": "Goal: {selectableboxzziytz}"
+          },
+          {
+            "text": "BMI {bmi.bmi}"
+          },
+          {
+            "text": "Health history"
+          }
+        ],
+        "showChart": true,
+        "weightField": "bmi.weight",
+        "chartLossPercent": 15,
+        "chartMonths": 12,
+        "chartUnit": "lbs",
+        "chartLabel": "Your projected journey*",
+        "chartDateText": "by {date}",
+        "chartTodayText": "Today",
+        "cardTitle": "Your treatment",
+        "treatmentField": "selectablebox2tbsa3",
+        "treatments": [
+          {
+            "match": "Compounded Tirzepatide",
+            "name": "Compounded tirzepatide",
+            "detail": "Weekly injection · starts at 2.5 mg",
+            "tags": "GLP-1 + GIP",
+            "imageUrl": "https://d2pmrhc7rl7s59.cloudfront.net/merchants/25/gallery/rYncgA7UvFbogjDYj2581j5TLZVnaAN1EzkOCJV9.png",
+            "chip": "Tirzepatide preference"
+          },
+          {
+            "match": "Compounded Semaglutide",
+            "name": "Compounded semaglutide",
+            "detail": "Weekly injection",
+            "tags": "GLP-1",
+            "imageUrl": "https://d2pmrhc7rl7s59.cloudfront.net/merchants/25/gallery/rYncgA7UvFbogjDYj2581j5TLZVnaAN1EzkOCJV9.png",
+            "chip": "Semaglutide preference"
+          },
+          {
+            "match": "",
+            "name": "Your provider’s recommendation",
+            "detail": "Your provider picks the medication after reviewing your answers",
+            "tags": "",
+            "imageUrl": "",
+            "chip": "Provider’s choice"
+          }
+        ],
+        "benefits": [
+          {
+            "icon": "stethoscope",
+            "text": "Licensed provider review + unlimited 1:1 messaging"
+          },
+          {
+            "icon": "heart",
+            "text": "Dose adjustments included — your price never goes up"
+          },
+          {
+            "icon": "truck",
+            "text": "Free, discreet 2-day shipping"
+          },
+          {
+            "icon": "shield",
+            "text": "HSA/FSA eligible · cancel anytime"
+          }
+        ],
+        "noteText": "A licensed provider in {state|your state} reviews your answers within 24 hours. Nothing ships until it’s approved.",
+        "noteImageUrl": "https://d2pmrhc7rl7s59.cloudfront.net/merchants/25/gallery/PxCHFLpkJj9eXDdhCShH6QBIq519yUzICFiH8cqs.jpg",
+        "faqs": [
+          {
+            "question": "Is GLP-1 safe for me?",
+            "answer": "Your provider reviews your health history before prescribing, and prescribes only if treatment is right for you."
+          },
+          {
+            "question": "What side effects should I expect?",
+            "answer": "Your provider goes through possible side effects with you before you start, and you can message them at any time."
+          },
+          {
+            "question": "Can I pause or cancel anytime?",
+            "answer": "Message your care team from your patient portal and they’ll help you change your plan."
+          }
+        ],
+        "buttonText": "Choose my plan",
+        "trust": [
+          {
+            "icon": "shield",
+            "text": "HSA/FSA eligible"
+          },
+          {
+            "icon": "truck",
+            "text": "Free shipping"
+          },
+          {
+            "icon": "lock",
+            "text": "HIPAA secure"
+          }
+        ],
+        "footnote": "",
+        "pageTone": "dark",
+        "hideBack": true,
+        "showContinueButton": false,
+        "navigationRules": [],
+        "isEndBlock": false,
+        "nextBlockId": "submit"
+      },
+      {
+        "type": "notAFit",
+        "uuid": "7aed1a0d-324c-485f-9374-35cfccbc1d6d",
+        "fieldName": "notAFitPregnancy",
+        "required": true,
+        "icon": "heart",
+        "heading": "GLP-1 isn’t the right fit for you right now",
+        "text": "Because you’re pregnant, breastfeeding, or planning a pregnancy, GLP-1 medication wouldn’t be safe. Your health comes first — and this isn’t a dead end.",
+        "stepsTitle": "What you can do",
+        "steps": [
+          {
+            "icon": "message",
+            "text": "Message a provider about safe options for you"
+          },
+          {
+            "icon": "leaf",
+            "text": "Explore other VitalMeds treatments"
+          },
+          {
+            "icon": "clock",
+            "text": "Come back anytime — we’ve saved your answers"
+          }
+        ],
+        "linkText": "Message a provider",
+        "linkUrl": "",
+        "nextText": "Explore other treatments",
+        "nextHref": "https://www.vitalmeds.com/",
+        "showContinueButton": true,
+        "hideProgress": true,
+        "hidePrivacy": true,
+        "accentColor": "#A8592B",
+        "accentSurface": "#FDF5ED",
+        "message": "Your answers rule this treatment out. Use Back to change an answer.",
+        "navigationRules": [],
+        "isEndBlock": false
+      }
+    ]
+  },
+  "localizations": {
+    "en": {
+      "f": "f",
+      "No": "No",
+      "fg": "fg",
+      "Yes": "Yes",
+      "fgg": "fgg",
+      "None": "None",
+      "fggd": "fggd",
+      "glp1": "glp1",
+      "Other": "Other",
+      "fggdf": "fggdf",
+      "Cancer": "Cancer",
+      "Unsure": "Unsure",
+      "fggdfg": "fggdfg",
+      "fggdfgf": "fggdfgf",
+      "Option 1": "Option 1",
+      "Option 2": "Option 2",
+      "fggdfgfd": "fggdfgfd",
+      "Prediabetes": "Prediabetes",
+      "Rarely/none": "Rarely/none",
+      "5+ days/week": "5+ days/week",
+      "Mediterranean": "Mediterranean",
+      "Kidney disease": "Kidney disease",
+      "Losing 51+ lbs": "Losing 51+ lbs",
+      "Please specify": "Please specify",
+      "1–2 days/week": "1–2 days/week",
+      "3–4 days/week": "3–4 days/week",
+      "Low-carb / Keto": "Low-carb / Keto",
+      "Type 2 diabetes": "Type 2 diabetes",
+      "Select an option": "Select an option",
+      "Losing 1–15 lbs": "Losing 1–15 lbs",
+      "None of the below": "None of the below",
+      "Losing 16–50 lbs": "Losing 16–50 lbs",
+      "Gallbladder disease": "Gallbladder disease",
+      "Signature Agreement": "Signature Agreement",
+      "Social (1–3/week)": "Social (1–3/week)",
+      "Intermittent fasting": "Intermittent fasting",
+      "Moderate (4–7/week)": "Moderate (4–7/week)",
+      "Select all that apply": "Select all that apply",
+      "Type your answer here": "Type your answer here",
+      "Liver or Kidney disease": "Liver or Kidney disease",
+      "Have you ever had surgery?": "Have you ever had surgery?",
+      "How often do you exercise?": "How often do you exercise?",
+      "Slider 1 (low) – 10 (high)": "Slider 1 (low) – 10 (high)",
+      "What's your weight loss goal?": "What's your weight loss goal?",
+      "Please list the medication(s).": "Please list the medication(s).",
+      "Type your detailed answer here": "Type your detailed answer here",
+      "How often do you drink alcohol?": "How often do you drink alcohol?",
+      "Do you follow a specific diet plan?": "Do you follow a specific diet plan?",
+      "I want to improve my overall health": "I want to improve my overall health",
+      "Not sure, I just want to lose weight": "Not sure, I just want to lose weight",
+      "Do you smoke or use nicotine products?": "Do you smoke or use nicotine products?",
+      "Have you used a GLP-1 medication before?": "Have you used a GLP-1 medication before?",
+      "I want to feel more confident in my body": "I want to feel more confident in my body",
+      "How long have you been at your current weight?": "How long have you been at your current weight?",
+      "Pancreatitis or history of pancreatic problems": "Pancreatitis or history of pancreatic problems",
+      "e.g., Wegovy®, Ozempic®, Mounjaro®, Rybelsus®": "e.g., Wegovy®, Ozempic®, Mounjaro®, Rybelsus®",
+      "Have you been diagnosed with any of the following?": "Have you been diagnosed with any of the following?",
+      "What would reaching your goal weight mean for you?": "What would reaching your goal weight mean for you?",
+      "Any known medication allergies or adverse reactions?": "Any known medication allergies or adverse reactions?",
+      "Please list the medication and describe the reaction.": "Please list the medication and describe the reaction.",
+      "Please list the medication name, dose, and frequency.": "Please list the medication name, dose, and frequency.",
+      "I want to feel better physically on a day-to-day basis": "I want to feel better physically on a day-to-day basis",
+      "I want to increase my energy levels and reduce fatigue": "I want to increase my energy levels and reduce fatigue",
+      "Please review and agree to the terms, then sign below.": "Please review and agree to the terms, then sign below.",
+      "I want to feel comfortable and confident in my clothing": "I want to feel comfortable and confident in my clothing",
+      "Please specify the type of surgery and the date performed.": "Please specify the type of surgery and the date performed.",
+      "On a scale of 1–10, how would you rate your stress level?": "On a scale of 1–10, how would you rate your stress level?",
+      "Do you currently take insulin or other diabetes medications?": "Do you currently take insulin or other diabetes medications?",
+      "Heart disease or pEating disorder (past or present)rior heart attack": "Heart disease or pEating disorder (past or present)rior heart attack",
+      "Are you currently taking any medications prescribed and over the counter?": "Are you currently taking any medications prescribed and over the counter?",
+      "Are you currently pregnant, breastfeeding, or planning to become pregnant?": "Are you currently pregnant, breastfeeding, or planning to become pregnant?",
+      "Do you have a personal or family history of medullary thyroid carcinoma (MTC) or MEN2?": "Do you have a personal or family history of medullary thyroid carcinoma (MTC) or MEN2?",
+      "Please specify the cancer type and stage, and indicate whether it is currently active.": "Please specify the cancer type and stage, and indicate whether it is currently active.",
+      "Please specify the medication name, dose, date last used, and any side effects experienced.": "Please specify the medication name, dose, date last used, and any side effects experienced.",
+      "Proof of current medication is required for approval. Please upload a photo of your prescription label or medication packaging.": "Proof of current medication is required for approval. Please upload a photo of your prescription label or medication packaging."
+    }
+  },
+  "theme": {
+    "card": "bg-[#FFFFFF] rounded-3xl border border-[#E3E5DD]",
+    "name": "VitalMeds 2.0",
+    "field": {
+      "file": "w-full rounded-2xl border border-[#E3E5DD] bg-[#FFFFFF] px-4 py-3 text-base text-[#1E2418] cursor-pointer hover:border-[#3C8F3D] transition-colors",
+      "text": "text-[#1E2418]",
+      "error": "mt-2 text-sm text-start text-[#FF0000]",
+      "input": "w-full h-14 rounded-2xl border border-[#E3E5DD] bg-[#FFFFFF] px-4 text-base text-[#1E2418] hover:border-[#3C8F3D] focus:border-[#3C8F3D] focus:outline-none focus:ring-0 shadow-none transition-colors placeholder:text-gray-400",
+      "label": "block text-2xl font-medium leading-tight tracking-tight text-[#1E2418]",
+      "radio": "h-5 w-5 border-[#A3A79A] text-[#3C8F3D] shadow-none focus:ring-0",
+      "range": "accent-[#3C8F3D]",
+      "matrix": "w-full border-collapse text-base rounded-2xl overflow-hidden",
+      "select": "w-full h-14 rounded-2xl border border-[#E3E5DD] bg-[#FFFFFF] px-4 text-base text-[#1E2418] hover:border-[#3C8F3D] focus:border-[#3C8F3D] focus:outline-none focus:ring-0 shadow-none transition-colors placeholder:text-gray-400",
+      "checkbox": "h-5 w-5 rounded-md border border-[#A3A79A] bg-[#FFFFFF] shadow-none focus:ring-0",
+      "textarea": "w-full h-32 rounded-2xl border border-[#E3E5DD] bg-[#FFFFFF] px-4 py-3 text-base text-[#1E2418] hover:border-[#3C8F3D] focus:border-[#3C8F3D] focus:outline-none focus:ring-0 shadow-none transition-colors placeholder:text-gray-400",
+      "boxBorder": "border-[#E3E5DD]",
+      "activeText": "text-[#3C8F3D]",
+      "description": "mt-1 text-sm leading-5 text-start text-[#5F6458]",
+      "placeholder": "text-gray-500",
+      "selectableBox": "px-4 py-3.5 rounded-2xl cursor-pointer text-left transition-colors duration-200",
+      "agreementPanel": "rounded-2xl border border-[#E3E5DD] bg-[#FFFFFF] px-4 py-3 text-base whitespace-pre-wrap",
+      "signatureColor": "#1E2418",
+      "signatureCanvas": "w-full h-40 rounded-2xl border border-[#E3E5DD] bg-[#FFFFFF] overflow-hidden",
+      "selectableBoxText": "text-base font-normal text-[#1E2418]",
+      "agreementContainer": "space-y-4",
+      "selectableBoxFocus": "focus:border-[#3C8F3D]",
+      "selectableBoxHover": "hover:border-[#3C8F3D]",
+      "selectableBoxDefault": "border border-[#E3E5DD] bg-[#FFFFFF] hover:border-[#3C8F3D]",
+      "selectableBoxDisabled": "opacity-50 cursor-not-allowed",
+      "selectableBoxSelected": "border-2 border-[#3C8F3D] bg-[#E7F5D5]",
+      "selectableBoxContainer": "space-y-2 w-full",
+      "selectableBoxIndicator": "bg-[#3C8F3D] text-white",
+      "selectableBoxTextSelected": "text-base font-semibold text-[#1E2418]",
+      "selectableBoxIndicatorIcon": "text-white"
+    },
+    "fonts": {
+      "body": "Manrope, sans-serif",
+      "urls": [
+        "https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@200..800&display=swap"
+      ],
+      "heading": "Manrope, sans-serif",
+      "primary": "Manrope, sans-serif",
+      "weights": {
+        "bold": 700,
+        "medium": 500,
+        "normal": 400,
+        "semibold": 600
+      },
+      "secondary": "\"Instrument Serif\", serif"
+    },
+    "title": "text-2xl font-medium tracking-tight text-start text-[#1E2418]",
+    "button": {
+      "text": "text-base font-medium text-[#1E2418] hover:text-[#3C8F3D]",
+      "primary": "inline-flex w-full h-14 items-center justify-center rounded-full bg-[#1E2418] hover:bg-[#2C3127] px-8 text-base font-semibold text-white transition-colors focus:outline-none",
+      "secondary": "inline-flex justify-center rounded-full border border-[#E3E5DD] bg-[#FFFFFF] px-8 py-3 text-base font-medium text-[#1E2418] hover:bg-[#F1F2EC] focus:outline-none transition-colors",
+      "navigation": "inline-flex items-center justify-center rounded-full bg-[#1E2418] hover:bg-[#2C3127] px-8 py-3 text-base font-semibold text-white"
+    },
+    "colors": {
+      "text": "#1E2418",
+      "error": "#FF0000",
+      "accent": "#E7F5D5",
+      "border": "#E3E5DD",
+      "primary": "#3C8F3D",
+      "success": "#10B981",
+      "secondary": "#CEEC8F",
+      "background": "#F1F2EC"
+    },
+    "header": "mb-6 text-start",
+    "progress": {
+      "bar": "bg-[#3C8F3D]",
+      "dots": "flex space-x-2 justify-center",
+      "label": "text-sm text-[#5F6458] mb-2",
+      "numbers": "flex space-x-2 justify-center",
+      "percentage": "text-right text-sm text-[#5F6458] mb-2"
+    },
+    "container": {
+      "card": "bg-[#FFFFFF]",
+      "border": "border-[#E3E5DD]",
+      "header": "bg-[#FFFFFF]",
+      "activeBg": "bg-[#E7F5D5]",
+      "activeBorder": "border-[#3C8F3D]"
+    },
+    "background": "bg-[#F1F2EC]",
+    "description": "text-sm text-start text-[#5F6458]",
+    "containerLayout": "w-full flex-1 h-full min-h-screen"
+  }
+}

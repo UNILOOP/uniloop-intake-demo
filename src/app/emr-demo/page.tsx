@@ -14,7 +14,14 @@ import {
   StandardNodes,
 } from '@/packages/survey-form-package/src/builder';
 import { getSystemBlocks } from './custom-blocks';
-import { DemoForm, normalizeForms, withMultiPageCheckout } from './forms';
+import { LocalLayouts } from './custom-layouts';
+import { BrandThemes } from './brand-themes';
+import {
+  DemoForm,
+  normalizeForms,
+  withMultiPageCheckout,
+  withUpsellOffer,
+} from './forms';
 import { loadMerchantComponents } from './merchant-components';
 import { createMerchantLogo } from './merchant-logo';
 import { FormErrorBoundary } from './form-error-boundary';
@@ -75,8 +82,13 @@ export default function EmrDemoPage() {
   const [error, setError] = useState('');
   const [result, setResult] = useState<any>(null);
   const [answers, setAnswers] = useState<Record<number, any>>({});
-  // `?checkout=two-page` or `three-page` splits each checkout form into pages
-  const [checkoutPages, setCheckoutPages] = useState<2 | 3>();
+  // `?layout=` and `?theme=` swap in a local layout and theme for every form
+  const [overrides, setOverrides] = useState<{
+    layout?: string;
+    theme?: string;
+    checkout?: string;
+    upsell?: string;
+  }>({});
   const [runtime, setRuntime] = useState<{
     utils: EmrEnrollmentUtils;
     legacy: ReturnType<typeof createLegacyEmrEnrollmentAdapter>;
@@ -91,12 +103,28 @@ export default function EmrDemoPage() {
     () => createMerchantLogo(plan?.merchant),
     [plan?.merchant],
   );
-  const visibleForms = useMemo(
-    () => (checkoutPages ? withMultiPageCheckout(forms, checkoutPages) : forms),
-    [forms, checkoutPages],
-  );
+  const visibleForms = useMemo(() => {
+    const checkoutForms =
+      overrides.checkout === 'two-page'
+        ? withMultiPageCheckout(forms, 2)
+        : overrides.checkout === 'three-page'
+          ? withMultiPageCheckout(forms, 3)
+          : forms;
+    return overrides.upsell
+      ? withUpsellOffer(checkoutForms, overrides.upsell)
+      : checkoutForms;
+  }, [forms, overrides.checkout, overrides.upsell]);
   const current =
     visibleForms.find((form) => form.key === selectedKey) ?? visibleForms[0];
+  const layout = overrides.layout
+    ? LocalLayouts[overrides.layout]
+    : merchantComponents.layouts[current?.custom_layout?.transpiled_code_url];
+  const formJson = useMemo(() => {
+    const theme = overrides.theme && BrandThemes[overrides.theme];
+    return theme && current?.form_json
+      ? { ...current.form_json, theme }
+      : current?.form_json;
+  }, [current?.form_json, overrides.theme]);
   const context = useRef<any>(null);
   context.current = {
     forms: visibleForms,
@@ -105,10 +133,13 @@ export default function EmrDemoPage() {
   };
 
   useEffect(() => {
-    const checkout = new URLSearchParams(window.location.search).get('checkout');
-    setCheckoutPages(
-      checkout === 'two-page' ? 2 : checkout === 'three-page' ? 3 : undefined,
-    );
+    const params = new URLSearchParams(window.location.search);
+    setOverrides({
+      layout: params.get('layout') || undefined,
+      theme: params.get('theme') || undefined,
+      checkout: params.get('checkout') || undefined,
+      upsell: params.get('upsell') || undefined,
+    });
   }, []);
 
   useEffect(() => {
@@ -616,18 +647,14 @@ export default function EmrDemoPage() {
                 editing ? (
                   <SurveyBuilder
                     key={`edit-${current.key}`}
-                    initialData={current.form_json}
+                    initialData={formJson}
                     blockDefinitions={[
                       ...StandardBlocks,
                       ...systemBlocks,
                       ...merchantComponents.definitions,
                     ]}
                     logo={logo}
-                    previewLayout={
-                      merchantComponents.layouts[
-                        current.custom_layout?.transpiled_code_url
-                      ]
-                    }
+                    previewLayout={layout}
                     nodeDefinitions={StandardNodes}
                     onDataChange={editForm}
                     customData={customData}
@@ -636,12 +663,8 @@ export default function EmrDemoPage() {
                   <SurveyForm
                     key={`${current.key}-${revision}`}
                     logo={logo}
-                    survey={current.form_json}
-                    layout={
-                      merchantComponents.layouts[
-                        current.custom_layout?.transpiled_code_url
-                      ]
-                    }
+                    survey={formJson}
+                    layout={layout}
                     initialValues={answers[current.id]}
                     onSubmit={completeForm}
                     onChange={(data) => {

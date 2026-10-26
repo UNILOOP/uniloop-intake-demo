@@ -110,3 +110,57 @@ export function withMultiPageCheckout(
     ];
   });
 }
+
+const CHECKOUT_TYPES = new Set(['singlePageCheckout', 'checkoutPayment']);
+
+const hasCheckout = (node: any): boolean =>
+  Array.isArray(node)
+    ? node.some(hasCheckout)
+    : !!node &&
+      typeof node === 'object' &&
+      (CHECKOUT_TYPES.has(node.type) || Object.values(node).some(hasCheckout));
+
+// `?upsell=1` adds a local upsell form right after the last checkout form, so the offer shows once the card is held
+// and before the enrollment is submitted. The value is the optional drug to offer; one the plan lacks (like 1) offers
+// the plan's first optional drug the patient hasn't picked.
+export function withUpsellOffer(forms: DemoForm[], drug: string): DemoForm[] {
+  const last = forms.findLastIndex((form) => hasCheckout(form.form_json));
+  if (last < 0) return forms;
+  const checkout = forms[last];
+  const drugId = Number(drug);
+  const upsell: DemoForm = {
+    ...checkout,
+    id: -1_000_000 - Math.abs(checkout.id),
+    key: `${checkout.key}-upsell`,
+    name: 'Upsell offer (local)',
+    form_json: {
+      ...checkout.form_json,
+      rootNode: {
+        type: 'section',
+        uuid: 'upsell-root',
+        name: 'Upsell offer',
+        items: [
+          {
+            type: 'set',
+            uuid: 'upsell-page',
+            name: 'Upsell offer',
+            items: [
+              {
+                type: 'upsellOffer',
+                uuid: 'upsell-offer',
+                fieldName: 'upsellOffer',
+                label: 'One more thing before we send your order',
+                required: true,
+                ...(Number.isInteger(drugId) && drugId > 0 ? { drugId } : {}),
+              },
+            ],
+          },
+        ],
+      },
+    },
+    is_required: false,
+    treatment_plan_form_id: null,
+    form_template_id: null,
+  };
+  return [...forms.slice(0, last + 1), upsell, ...forms.slice(last + 1)];
+}
