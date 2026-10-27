@@ -10,6 +10,7 @@ const ENTRIES = [
   'src/app/emr-demo/custom-blocks/CheckoutSelectionBlock.tsx',
   'src/app/emr-demo/custom-blocks/CheckoutShippingBlock.tsx',
   'src/app/emr-demo/custom-blocks/CheckoutPaymentBlock.tsx',
+  'src/app/emr-demo/custom-blocks/UpsellOfferBlock.tsx',
 ];
 
 mkdirSync('portal-blocks', { recursive: true });

@@ -120,47 +120,38 @@ const hasCheckout = (node: any): boolean =>
       typeof node === 'object' &&
       (CHECKOUT_TYPES.has(node.type) || Object.values(node).some(hasCheckout));
 
-// `?upsell=1` adds a local upsell form right after the last checkout form, so the offer shows once the card is held
-// and before the enrollment is submitted. The value is the optional drug to offer; one the plan lacks (like 1) offers
-// the plan's first optional drug the patient hasn't picked.
-export function withUpsellOffer(forms: DemoForm[], drug: string): DemoForm[] {
+// `?upsell=1` adds an upsell page at the end of the last checkout form, as on the portal: Payment holds the card and
+// moves on to it, and the page's Complete submits the enrollment. `?upsell=1` offers every optional drug on the plan; a
+// list offers those in order (`?upsell=1355,1388`), leaving out ids the plan lacks.
+// `&upsellLayout=thank-you` uses the thank-you look and `&upsellTimer=5` adds a five-minute countdown.
+export function withUpsellOffer(
+  forms: DemoForm[],
+  drugs: string,
+  options: { layout?: string; timer?: string } = {},
+): DemoForm[] {
   const last = forms.findLastIndex((form) => hasCheckout(form.form_json));
   if (last < 0) return forms;
   const checkout = forms[last];
-  const drugId = Number(drug);
-  const upsell: DemoForm = {
+  const drugIds = drugs === '1' ? '' : drugs.split(',').join(', ');
+  const timerMinutes = Number(options.timer);
+  // A block straight in the checkout section is its own page, like the checkout's own blocks.
+  const offer = {
+    type: 'upsellOffer',
+    uuid: 'upsell-offer',
+    fieldName: 'upsellOffer',
+    label: 'One more thing before we send your order',
+    required: true,
+    ...(drugIds ? { drugIds } : {}),
+    ...(options.layout === 'thank-you' ? { layout: 'thank-you' } : {}),
+    ...(timerMinutes > 0 ? { timerMinutes } : {}),
+  };
+  const rootNode = checkout.form_json.rootNode;
+  const withPage: DemoForm = {
     ...checkout,
-    id: -1_000_000 - Math.abs(checkout.id),
-    key: `${checkout.key}-upsell`,
-    name: 'Upsell offer (local)',
     form_json: {
       ...checkout.form_json,
-      rootNode: {
-        type: 'section',
-        uuid: 'upsell-root',
-        name: 'Upsell offer',
-        items: [
-          {
-            type: 'set',
-            uuid: 'upsell-page',
-            name: 'Upsell offer',
-            items: [
-              {
-                type: 'upsellOffer',
-                uuid: 'upsell-offer',
-                fieldName: 'upsellOffer',
-                label: 'One more thing before we send your order',
-                required: true,
-                ...(Number.isInteger(drugId) && drugId > 0 ? { drugId } : {}),
-              },
-            ],
-          },
-        ],
-      },
+      rootNode: { ...rootNode, items: [...(rootNode.items || []), offer] },
     },
-    is_required: false,
-    treatment_plan_form_id: null,
-    form_template_id: null,
   };
-  return [...forms.slice(0, last + 1), upsell, ...forms.slice(last + 1)];
+  return forms.map((form, index) => (index === last ? withPage : form));
 }

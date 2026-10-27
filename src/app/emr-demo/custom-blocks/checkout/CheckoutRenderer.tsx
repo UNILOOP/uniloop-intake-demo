@@ -239,6 +239,9 @@ export const CheckoutRenderer = forwardRef<
   const { block, value, onChange, error, disabled, theme: themeProp } = props;
   const step = props.step ?? 'single';
   const survey = useSurveyForm();
+  // Stripe's success callback can run a render-old closure; page moves read the form as it is now.
+  const surveyRef = useRef(survey);
+  surveyRef.current = survey;
   // The EMR enrollment utils (block preview and EMR enrollment) add prepaid quotes and the preferred-drug lookup.
   // Public form links still pass only the older enrollment module.
   const utils = survey.customData?.emrEnrollmentUtils as
@@ -1059,6 +1062,12 @@ export const CheckoutRenderer = forwardRef<
         throw new Error(copy.selectionChangedMessage);
       // Back during the session check unmounts the page; the order then waits until the patient completes it again.
       if (stepMode && !mountedRef.current) return;
+      // A page after Payment (such as a post-purchase offer) submits the order itself, so move on with the payment.
+      if (stepMode && !surveyRef.current.isLastPage) {
+        emit(result as Record<string, unknown>);
+        surveyRef.current.goToNextBlock({ [fieldName]: result });
+        return;
+      }
       await submitSurvey({ ...survey.values, [fieldName]: result });
       submitted = true;
       // Core's submit swallows a failed order, so the memory goes only once the enrollment is recorded.

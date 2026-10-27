@@ -88,6 +88,8 @@ export default function EmrDemoPage() {
     theme?: string;
     checkout?: string;
     upsell?: string;
+    upsellLayout?: string;
+    upsellTimer?: string;
   }>({});
   const [runtime, setRuntime] = useState<{
     utils: EmrEnrollmentUtils;
@@ -111,9 +113,18 @@ export default function EmrDemoPage() {
           ? withMultiPageCheckout(forms, 3)
           : forms;
     return overrides.upsell
-      ? withUpsellOffer(checkoutForms, overrides.upsell)
+      ? withUpsellOffer(checkoutForms, overrides.upsell, {
+          layout: overrides.upsellLayout,
+          timer: overrides.upsellTimer,
+        })
       : checkoutForms;
-  }, [forms, overrides.checkout, overrides.upsell]);
+  }, [
+    forms,
+    overrides.checkout,
+    overrides.upsell,
+    overrides.upsellLayout,
+    overrides.upsellTimer,
+  ]);
   const current =
     visibleForms.find((form) => form.key === selectedKey) ?? visibleForms[0];
   const layout = overrides.layout
@@ -139,6 +150,8 @@ export default function EmrDemoPage() {
       theme: params.get('theme') || undefined,
       checkout: params.get('checkout') || undefined,
       upsell: params.get('upsell') || undefined,
+      upsellLayout: params.get('upsellLayout') || undefined,
+      upsellTimer: params.get('upsellTimer') || undefined,
     });
   }, []);
 

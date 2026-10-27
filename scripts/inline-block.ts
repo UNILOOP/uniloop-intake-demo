@@ -3,9 +3,10 @@
 import { existsSync, readFileSync, statSync, writeFileSync } from 'node:fs';
 import { dirname, relative, resolve } from 'node:path';
 
-// The portal accepts these imports only (docs/block-development.md, "What the portal accepts").
+// The portal accepts these imports only (docs/block-development.md, "What the portal accepts"); Validate Code also
+// accepts @stripe/stripe-js (checked 2026-10-21), which the upsell block uses to confirm its new hold.
 export const ALLOWED_IMPORT =
-  /^(react|lucide-react|@\/packages\/survey-form-package\/src(\/.*)?)$/;
+  /^(react|lucide-react|@stripe\/stripe-js|@\/packages\/survey-form-package\/src(\/.*)?)$/;
 
 interface ImportSpec {
   defaultName?: string;
