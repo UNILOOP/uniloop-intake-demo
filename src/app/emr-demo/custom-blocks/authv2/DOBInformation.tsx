@@ -2,11 +2,13 @@ import React, { forwardRef, useEffect, useRef, useState } from "react"
 import { Calendar } from "lucide-react"
 
 import type {
+  AnswerViewProps,
   BlockDefinition,
   ContentBlockItemProps,
   BlockRendererProps,
   BlockData,
 } from "@/packages/survey-form-package/src/types"
+import { RawAnswer } from "@/packages/survey-form-package/src/renderer/answers"
 
 import { themes } from "@/packages/survey-form-package/src/themes"
 import { useSurveyForm } from "@/packages/survey-form-package/src/context/SurveyFormContext"
@@ -301,6 +303,25 @@ const DOBInformationRenderer = forwardRef<HTMLInputElement, BlockRendererProps>(
 
 DOBInformationRenderer.displayName = "DOBInformationRenderer"
 
+// Typed as MM-DD-YYYY; a date taken from the patient's profile may be YYYY-MM-DD
+const DOBAnswerView = ({ value }: AnswerViewProps) => {
+  if (typeof value !== "string") return <RawAnswer value={value} />
+  const typed = value.match(/^(\d{2})-(\d{2})-(\d{4})$/)
+  const iso = value.match(/^(\d{4})-(\d{2})-(\d{2})/)
+  const [year, month, day] = typed
+    ? [typed[3], typed[1], typed[2]].map(Number)
+    : iso
+      ? [iso[1], iso[2], iso[3]].map(Number)
+      : []
+  const date = year ? new Date(year, month - 1, day) : undefined
+  const valid = date && date.getMonth() === month - 1 && date.getDate() === day
+  return (
+    <span className="text-sm">
+      {valid ? date.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" }) : value}
+    </span>
+  )
+}
+
 // Export the Block Definition
 export const DOBInformationBlock: BlockDefinition = {
   type: "dobInformation",
@@ -341,4 +362,5 @@ export const DOBInformationBlock: BlockDefinition = {
     }
     return null
   },
+  answerView: (props) => <DOBAnswerView {...props} />,
 }

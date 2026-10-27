@@ -2,12 +2,14 @@ import React, { forwardRef, useState, useEffect, useRef } from "react";
 import { Check, Mail, Phone } from "lucide-react";
 
 import type {
+  AnswerViewProps,
   BlockDefinition,
   ContentBlockItemProps,
   BlockRendererProps,
   BlockData,
   ThemeDefinition,
 } from "@/packages/survey-form-package/src/types";
+import { AnswerFields, phoneText, textOf } from "../AnswerFields";
 
 import { themes } from "@/packages/survey-form-package/src/themes";
 import { useSurveyForm } from "@/packages/survey-form-package/src/context/SurveyFormContext";
@@ -580,6 +582,20 @@ const AuthInformationRenderer = forwardRef<
 
 AuthInformationRenderer.displayName = "AuthInformationRenderer";
 
+// Saved as { email, phone, privacyAgreed }, the phone as its digits
+const AuthInformationAnswerView = ({ value }: AnswerViewProps) => (
+  <AnswerFields
+    fields={[
+      { label: "Email", value: textOf(value?.email) },
+      { label: "Phone", value: phoneText(value?.phone) },
+      {
+        label: "Privacy terms",
+        value: typeof value?.privacyAgreed === "boolean" ? (value.privacyAgreed ? "Agreed" : "Not agreed") : undefined,
+      },
+    ]}
+  />
+);
+
 // Export the Block Definition
 export const AuthInformationBlock: BlockDefinition = {
   type: "AuthInformation",
@@ -647,6 +663,7 @@ export const AuthInformationBlock: BlockDefinition = {
 
     return Object.keys(errors).length ? errors : null;
   },
+  answerView: (props) => <AuthInformationAnswerView {...props} />,
   outputSchema: {
     type: "object",
     properties: {

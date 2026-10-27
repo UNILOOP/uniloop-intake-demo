@@ -6,6 +6,7 @@ import type {
   ContentBlockItemProps,
   BlockData,
 } from "@/packages/survey-form-package/src/types";
+import { OptionChips, toOptionChoices } from "@/packages/survey-form-package/src/renderer/answers";
 
 import { themes } from "@/packages/survey-form-package/src/themes";
 import { useSurveyForm } from "@/packages/survey-form-package/src/context/SurveyFormContext";
@@ -454,6 +455,7 @@ export const GenderInformationBlock: BlockDefinition = {
     if (data.required && !value) return `Please select an option.`;
     return null;
   },
+  answerView: ({ value }) => <OptionChips options={toOptionChoices(options)} value={value} />,
   outputSchema: {
     type: "string",
   },

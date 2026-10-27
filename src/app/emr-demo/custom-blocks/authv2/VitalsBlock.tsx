@@ -2,11 +2,13 @@ import React, { useState, useEffect, useCallback, useRef } from "react";
 import { Activity } from "lucide-react";
 
 import type {
+  AnswerViewProps,
   BlockDefinition,
   ContentBlockItemProps,
   BlockRendererProps,
   BlockData,
 } from "@/packages/survey-form-package/src/types";
+import { AnswerFields, textOf } from "../AnswerFields";
 
 import { Input } from "@/packages/survey-form-package/src/components/ui/input";
 import { Label } from "@/packages/survey-form-package/src/components/ui/label";
@@ -528,6 +530,34 @@ const VitalsRenderer = React.forwardRef<HTMLDivElement, BlockRendererProps>(
 
 VitalsRenderer.displayName = "VitalsRenderer";
 
+// Height is saved as feet and inches and weight in lbs; each reading may be a number or the typed text
+const VitalsAnswerView = ({ value }: AnswerViewProps) => {
+  const reading = (key: string) => textOf(value?.[key]);
+  const withUnit = (key: VitalKey) => {
+    const text = reading(key);
+    return text && `${text}${key === "oxygen_saturation" ? "" : " "}${VITAL_DEFAULTS[key].unit}`;
+  };
+  const feet = reading("feet");
+  const systolic = reading("systolic");
+  const diastolic = reading("diastolic");
+  return (
+    <AnswerFields
+      fields={[
+        { label: "Height", value: feet && `${feet} ft ${reading("inches") ?? 0} in` },
+        { label: "Weight", value: withUnit("weight") },
+        { label: "BMI", value: reading("bmi") },
+        {
+          label: "Blood pressure",
+          value: (systolic || diastolic) && `${systolic ?? "?"}/${diastolic ?? "?"} ${VITAL_DEFAULTS.systolic.unit}`,
+        },
+        { label: "Heart rate", value: withUnit("pulse") },
+        { label: "Temperature", value: withUnit("temperature") },
+        { label: "O\u2082 saturation", value: withUnit("oxygen_saturation") },
+      ]}
+    />
+  );
+};
+
 // ============================================================================
 // BLOCK DEFINITION
 // ============================================================================
@@ -601,6 +631,7 @@ export const VitalsInformationBlock: BlockDefinition = {
 
     return null;
   },
+  answerView: (props) => <VitalsAnswerView {...props} />,
   outputSchema: {
     type: "object",
     properties: {

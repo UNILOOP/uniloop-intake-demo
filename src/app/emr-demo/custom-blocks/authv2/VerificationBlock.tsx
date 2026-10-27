@@ -12,12 +12,14 @@ import {
   Heart,
 } from "lucide-react";
 import type {
+  AnswerViewProps,
   BlockDefinition,
   ContentBlockItemProps,
   BlockRendererProps,
   BlockData,
   ThemeDefinition,
 } from "@/packages/survey-form-package/src/types";
+import { Badge } from "@/packages/survey-form-package/src/components/ui/badge";
 import { Button } from "@/packages/survey-form-package/src/components/ui/button";
 import { themes } from "@/packages/survey-form-package/src/themes";
 import { useSurveyForm } from "@/packages/survey-form-package/src/context/SurveyFormContext";
@@ -41,6 +43,7 @@ import {
   AlertDescription,
 } from "@/packages/survey-form-package/src/components/ui/alert";
 import { useBlockOperation } from "@/packages/survey-form-package/src/hooks/useBlockOperation";
+import { timeText } from "../AnswerFields";
 
 // ============================================================================
 // REUSABLE ERROR COMPONENTS
@@ -1079,6 +1082,26 @@ const VerificationInformationRenderer = forwardRef<
 
 VerificationInformationRenderer.displayName = "VerificationRenderer";
 
+// The saved answer holds the patient's code or password and their login token, so only whether and how they
+// verified is shown. A code or password check saves an `otp` key; a still valid login or a first-time patient
+// whose code step was skipped saves none.
+const VerificationAnswerView = ({ block, value }: AnswerViewProps) => {
+  const answer = value !== null && typeof value === "object" ? value : {};
+  const verified = answer.isAuthenticated === true;
+  const method = !("otp" in answer)
+    ? "Verified"
+    : block.authMethod === "password"
+      ? "Verified by password"
+      : "Verified by one-time code";
+  const verifiedAt = verified ? timeText(answer.timestamp) : undefined;
+  return (
+    <div className="flex flex-wrap items-center gap-2">
+      <Badge variant={verified ? "default" : "secondary"}>{verified ? method : "Not verified"}</Badge>
+      {verifiedAt && <span className="text-xs text-muted-foreground">{verifiedAt}</span>}
+    </div>
+  );
+};
+
 // ============================================================================
 // BLOCK DEFINITION
 // ============================================================================
@@ -1128,6 +1151,7 @@ export const VerificationInformationBlock: BlockDefinition = {
     }
     return null;
   },
+  answerView: (props) => <VerificationAnswerView {...props} />,
   outputSchema: {
     type: "object",
     properties: {

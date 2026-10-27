@@ -1,11 +1,13 @@
 import { FileText } from "lucide-react";
 import React, { useState, useEffect, useRef } from "react";
 import type {
+  AnswerViewProps,
   BlockDefinition,
   ContentBlockItemProps,
   BlockRendererProps,
   BlockData,
 } from "@/packages/survey-form-package/src/types";
+import { AnswerFields, textOf } from "../AnswerFields";
 
 import { themes } from "@/packages/survey-form-package/src/themes";
 import { useSurveyForm } from "@/packages/survey-form-package/src/context/SurveyFormContext";
@@ -389,6 +391,20 @@ const NameInformationRenderer = React.forwardRef<
 });
 NameInformationRenderer.displayName = "NameInformationRenderer";
 
+// Saved as { firstName, lastName, state }, the state as its two-letter code
+const NameInformationAnswerView = ({ value }: AnswerViewProps) => {
+  const name = [textOf(value?.firstName), textOf(value?.lastName)].filter(Boolean).join(" ");
+  const state = textOf(value?.state);
+  return (
+    <AnswerFields
+      fields={[
+        { label: "Name", value: name },
+        { label: "Shipping state", value: state && (US_STATES.find((option) => option.value === state)?.label ?? state) },
+      ]}
+    />
+  );
+};
+
 // Export the Block Definition
 export const NameInformationBlock: BlockDefinition = {
   type: "nameInformation",
@@ -426,6 +442,7 @@ export const NameInformationBlock: BlockDefinition = {
     }
     return null;
   },
+  answerView: (props) => <NameInformationAnswerView {...props} />,
   outputSchema: {
     type: "object",
     properties: {

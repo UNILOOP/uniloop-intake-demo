@@ -10,10 +10,12 @@ import { Label } from '@/packages/survey-form-package/src/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/packages/survey-form-package/src/components/ui/radio-group';
 import { useSurveyForm } from '@/packages/survey-form-package/src/context/SurveyFormContext';
 import { cn } from '@/packages/survey-form-package/src/lib/utils';
+import { RawAnswer } from '@/packages/survey-form-package/src/renderer/answers';
 import { themes } from '@/packages/survey-form-package/src/themes';
-import type { BlockDefinition, BlockRendererProps, ContentBlockItemProps } from '@/packages/survey-form-package/src/types';
+import type { AnswerViewProps, BlockDefinition, BlockRendererProps, ContentBlockItemProps } from '@/packages/survey-form-package/src/types';
 import { AlertCircle, Check, CheckCircle2, Pill, Plus, Shield, Sparkles } from 'lucide-react';
 import React, { forwardRef, useCallback, useEffect, useRef, useState } from 'react';
+import { AnswerFields, textOf } from './AnswerFields';
 
 type EnrollmentModule = any;
 
@@ -1772,6 +1774,55 @@ const MultiSelectGroupSection: React.FC<{
 
 EmrDrugSelectionRenderer.displayName = 'EmrDrugSelectionRenderer';
 
+const drugNames = (drugs: unknown): string[] =>
+    Array.isArray(drugs) ? drugs.map((drug) => textOf(drug?.drugName)).filter((name): name is string => Boolean(name)) : [];
+
+// Saved as the plan, its medications (standalone and by group), the picked add-ons and the total. The currency
+// isn't saved with the answer, so amounts show in dollars.
+const EmrDrugSelectionAnswerView = ({ value }: AnswerViewProps) => {
+    if (!value || typeof value !== 'object' || Array.isArray(value)) return <RawAnswer value={value} />;
+    const groups: any[] = Array.isArray(value.groupSelections) ? value.groupSelections : [];
+    const medications = [
+        ...drugNames(value.standaloneDrugs),
+        ...groups.flatMap((group) => {
+            const names = drugNames(group?.selectedDrugs);
+            const picked = names.length ? names : [textOf(group?.selectedDrugName)].filter(Boolean);
+            const groupName = textOf(group?.groupName);
+            return picked.length ? [groupName ? `${groupName}: ${picked.join(', ')}` : picked.join(', ')] : [];
+        }),
+    ];
+    const addOns = (Array.isArray(value.optionalDrugs) ? value.optionalDrugs : [])
+        .map((drug: any) => {
+            const name = textOf(drug?.drugName);
+            return name && (textOf(drug?.price) ? `${name} (+${formatCurrency(drug.price)})` : name);
+        })
+        .filter(Boolean);
+
+    return (
+        <AnswerFields
+            fields={[
+                { label: 'Plan', value: [textOf(value.variantName), textOf(value.scheduleLabel)].filter(Boolean).join(' · ') },
+                {
+                    label: 'Billing',
+                    value: typeof value.billingOptionId === 'number' ? 'Prepaid' : value.billingOptionId === null ? 'Pay per refill' : undefined,
+                },
+                {
+                    label: 'Medications',
+                    value: medications.length > 0 && (
+                        <ul className="space-y-0.5">
+                            {medications.map((medication, index) => (
+                                <li key={`${medication}-${index}`}>{medication}</li>
+                            ))}
+                        </ul>
+                    ),
+                },
+                { label: 'Add-ons', value: addOns.join(', ') },
+                { label: 'Total', value: textOf(value.total) && formatCurrency(value.total) },
+            ]}
+        />
+    );
+};
+
 const EmrDrugSelectionBlock: BlockDefinition = {
     type: 'variant-selection',
     name: 'Treatment Variant Selection',
@@ -1827,6 +1878,7 @@ const EmrDrugSelectionBlock: BlockDefinition = {
 
         return null;
     },
+    answerView: (props) => <EmrDrugSelectionAnswerView {...props} />,
     outputSchema: {
         type: 'object',
         properties: {
