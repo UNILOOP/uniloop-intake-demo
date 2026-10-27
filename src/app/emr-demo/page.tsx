@@ -19,6 +19,17 @@ import { loadMerchantComponents } from './merchant-components';
 import { createMerchantLogo } from './merchant-logo';
 import { FormErrorBoundary } from './form-error-boundary';
 import {
+  PATIENT_FIELDS,
+  PatientContextPanel,
+  patientMappingField,
+  patientSync,
+  patientToExternal,
+} from './patient-external';
+import {
+  useExternalStore,
+  type ExternalConfig,
+} from '@/packages/survey-form-package/src';
+import {
   advertisedTokenScopes,
   DEFAULT_UNILOOP_URL,
   normalizeUniloopBaseUrl,
@@ -81,6 +92,19 @@ export default function EmrDemoPage() {
   } | null>(null);
   const runtimeRef = useRef<EmrEnrollmentUtils | null>(null);
   const generation = useRef(0);
+  // Patient keys shared with every rendered form. Updating the store changes a
+  // mounted form in place; the form writes answers to mapped blocks back here.
+  const patientStore = useExternalStore();
+  const external = useMemo<ExternalConfig>(
+    () => ({
+      store: patientStore,
+      sync: patientSync,
+      onChange: (values, changes, source) =>
+        console.log('[emr-demo] patient keys updated', { source, changes, values }),
+    }),
+    [patientStore],
+  );
+  const globalCustomFields = useMemo(() => [patientMappingField], []);
   const systemBlocks = useMemo(
     () => (typeof window !== 'undefined' ? getSystemBlocks() : []),
     [],
@@ -275,12 +299,13 @@ export default function EmrDemoPage() {
       ),
     );
     setRuntime({ utils, legacy: createLegacyEmrEnrollmentAdapter(utils) });
+    patientStore.setValues(patientToExternal(utils.getStoredPatient()));
     return () => {
       uninstall();
       utils.dispose();
       runtimeRef.current = null;
     };
-  }, [plan, activeToken, activeBaseUrl, defaultBaseUrl, slug]);
+  }, [plan, activeToken, activeBaseUrl, defaultBaseUrl, slug, patientStore]);
 
   useEffect(() => {
     if (!plan) return;
@@ -537,6 +562,7 @@ export default function EmrDemoPage() {
                 No enrollment form schemas were returned for this plan.
               </p>
             )}
+            <PatientContextPanel store={patientStore} />
           </aside>
           <section
             className={`min-w-0 flex-1 p-4 ${focusMode ? 'min-h-screen' : ''}`}
@@ -619,6 +645,8 @@ export default function EmrDemoPage() {
                     nodeDefinitions={StandardNodes}
                     onDataChange={editForm}
                     customData={customData}
+                    externalFields={PATIENT_FIELDS}
+                    globalCustomFields={globalCustomFields}
                   />
                 ) : (
                   <SurveyForm
@@ -647,6 +675,7 @@ export default function EmrDemoPage() {
                       );
                     }}
                     customData={customData}
+                    external={external}
                     progressBar={{
                       type: 'percentage',
                       showPercentage: true,
