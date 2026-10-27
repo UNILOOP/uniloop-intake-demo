@@ -341,6 +341,9 @@ export const CheckoutRenderer = forwardRef<
   const [orderSubmitted, setOrderSubmitted] = useState(false);
   const busy = useRef(false);
   const pendingPayment = useRef(false);
+  // Complete My Order asked to finish the order once the card is confirmed. Kept apart from pendingPayment: with a saved
+  // card the payment form reports processing done before its own success callback runs.
+  const continueAfterPayment = useRef(false);
   const formRef = useRef<HTMLFormElement | null>(null);
   const checkoutRef = useRef<HTMLElement | null>(null);
   const valueRef = useRef<unknown>(value);
@@ -1108,6 +1111,7 @@ export const CheckoutRenderer = forwardRef<
     }
     if (pendingPayment.current) return;
     pendingPayment.current = true;
+    continueAfterPayment.current = true;
     paymentInFlight.current = true;
     setPending(true);
     form.requestSubmit();
@@ -2466,6 +2470,7 @@ export const CheckoutRenderer = forwardRef<
           beforeSubmit={() => {
             const cancel = () => {
               pendingPayment.current = false;
+              continueAfterPayment.current = false;
               paymentInFlight.current = false;
               setPending(false);
               return false;
@@ -2503,13 +2508,15 @@ export const CheckoutRenderer = forwardRef<
               );
               emit(result);
               refresh();
-              const continuation = pendingPayment.current;
+              const continuation = continueAfterPayment.current;
+              continueAfterPayment.current = false;
               pendingPayment.current = false;
               paymentInFlight.current = false;
               setPending(false);
               if (continuation) void finishOrder(result);
             } catch (caught) {
               pendingPayment.current = false;
+              continueAfterPayment.current = false;
               paymentInFlight.current = false;
               setPending(false);
               releaseAfterUnmount();
@@ -2522,6 +2529,7 @@ export const CheckoutRenderer = forwardRef<
           }}
           onError={(message: string) => {
             pendingPayment.current = false;
+            continueAfterPayment.current = false;
             paymentInFlight.current = false;
             setPending(false);
             releaseAfterUnmount();
