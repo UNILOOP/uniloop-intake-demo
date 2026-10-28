@@ -1,5 +1,6 @@
 import type { BlockDefinition } from '@/packages/survey-form-package/src/types';
 import { EmrCheckoutBlock } from './EmrCheckoutBlock';
+import { UniloopCheckoutBlock } from './UniloopCheckoutBlock';
 import EmrDrugSelectionBlock from './EmrDrugSelectionBlock';
 import { VerificationInformationBlock } from './authv2/VerificationBlock';
 import { NameInformationBlock } from './authv2/NameInformationBlock';
@@ -23,6 +24,7 @@ export const EmrCustomBlocks: BlockDefinition[] = [
   VitalsInformationBlock,
   EmrDrugSelectionBlock,
   EmrCheckoutBlock,
+  UniloopCheckoutBlock,
 ];
 
 export const getSystemBlocks = () => {
@@ -35,6 +37,7 @@ export const getSystemBlocks = () => {
     VitalsInformationBlock,
     EmrDrugSelectionBlock,
     EmrCheckoutBlock,
+    UniloopCheckoutBlock,
   ];
   blockList.forEach((block) => {
     registerBlock(block);
