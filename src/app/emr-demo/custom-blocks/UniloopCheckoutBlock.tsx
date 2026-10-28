@@ -3736,6 +3736,29 @@ const SinglePageCheckoutRenderer = forwardRef<
 
 SinglePageCheckoutRenderer.displayName = 'SinglePageCheckoutRenderer';
 
+// The answer is only { complete, checkoutSignature, paymentMethodId }: the order itself goes to the enrollment, and
+// the payment method is a Stripe reference, so the view shows whether payment went through. Styled as the answer
+// renderer's badges without importing them, so the file stays within the portal's allowed imports.
+const SinglePageCheckoutAnswerView = ({ value }: { value: unknown }) => {
+  const paid =
+    value !== null &&
+    typeof value === 'object' &&
+    (value as Record<string, unknown>).complete === true &&
+    Boolean((value as Record<string, unknown>).paymentMethodId);
+  return (
+    <span
+      className={cn(
+        'inline-flex items-center rounded-md border border-transparent px-2.5 py-0.5 text-xs font-semibold',
+        paid
+          ? 'bg-primary text-primary-foreground shadow'
+          : 'bg-secondary text-secondary-foreground',
+      )}
+    >
+      {paid ? 'Payment completed' : 'Payment not completed'}
+    </span>
+  );
+};
+
 // ============================================================================
 // Builder
 // ============================================================================
@@ -4049,6 +4072,7 @@ export const UniloopCheckoutBlock: BlockDefinition = {
     value?.complete === true && value.paymentMethodId
       ? null
       : readCopy(data).paymentRequiredMessage,
+  answerView: ({ value }) => <SinglePageCheckoutAnswerView value={value} />,
 };
 
 export default UniloopCheckoutBlock;

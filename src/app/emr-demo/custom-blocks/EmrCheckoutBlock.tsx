@@ -10,7 +10,7 @@ import { RadioGroup, RadioGroupItem } from '@/packages/survey-form-package/src/c
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/packages/survey-form-package/src/components/ui/select';
 import { useSurveyForm } from '@/packages/survey-form-package/src/context/SurveyFormContext';
 import { cn } from '@/packages/survey-form-package/src/lib/utils';
-import type { BlockDefinition, BlockRendererProps, ContentBlockItemProps } from '@/packages/survey-form-package/src/types';
+import type { AnswerViewProps, BlockDefinition, BlockRendererProps, ContentBlockItemProps } from '@/packages/survey-form-package/src/types';
 import type { EmrBillingOption } from '@/types/emr-treatment';
 import {
     AlertCircle,
@@ -32,6 +32,7 @@ import {
 import React, { forwardRef, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import type { EmrEnrollmentUtils as EnrollmentModule } from '@/lib/emr-enrollment-utils';
+import { AnswerFields, phoneText, textOf, timeText } from './AnswerFields';
 
 const fmt = (amount: number | string | null | undefined): string => `$${(Number(amount) || 0).toFixed(2)}`;
 
@@ -1616,6 +1617,78 @@ const EmrCheckoutRenderer = forwardRef<HTMLDivElement, BlockRendererProps>(({ bl
 
 EmrCheckoutRenderer.displayName = 'EmrCheckoutRenderer';
 
+const RENEWAL_TEXT: Record<string, string> = {
+    auto_renew: 'renews automatically',
+    require_new_purchase: 'needs a new purchase to renew',
+    end_enrollment: 'ends the enrollment when used up',
+};
+
+const CHARGE_TEXT: Record<string, string> = {
+    save_only: 'Card saved',
+    save_and_authorize: 'Card authorized',
+};
+
+// Saved as the checkout result (an object, or its JSON text in older answers). The payment method and intent,
+// checkout and quote identities stay hidden: they are payment references, not answers.
+const EmrCheckoutAnswerView = ({ value }: AnswerViewProps) => {
+    let result: any = value;
+    if (typeof value === 'string') {
+        try {
+            result = JSON.parse(value);
+        } catch {
+            result = null;
+        }
+    }
+    if (!result || typeof result !== 'object') result = {};
+
+    const info = result.patientInfo ?? {};
+    const address = result.address ?? {};
+    const cityLine = [textOf(address.city), [textOf(address.state), textOf(address.zip)].filter(Boolean).join(' ')]
+        .filter(Boolean)
+        .join(', ');
+    const addressLines = [textOf(address.line1), textOf(address.line2), cityLine].filter(Boolean);
+    const terms = result.billingQuote?.terms;
+    const supplies = Number(terms?.supply_count);
+    const prepaid =
+        Number.isFinite(supplies) && supplies > 0
+            ? [`${supplies} ${supplies === 1 ? 'supply' : 'supplies'}`, RENEWAL_TEXT[terms?.renewal_policy]].filter(Boolean).join(', ')
+            : undefined;
+    const discount = Number(result.discount);
+    const money = (amount: unknown) => (textOf(amount) ? fmt(amount as number | string) : undefined);
+
+    return (
+        <div className="space-y-2">
+            <Badge variant={result.success === true ? 'default' : 'secondary'}>
+                {result.success === true ? 'Checkout completed' : 'Checkout not completed'}
+            </Badge>
+            <AnswerFields
+                fields={[
+                    { label: 'Name', value: [textOf(info.first_name), textOf(info.last_name)].filter(Boolean).join(' ') },
+                    { label: 'Email', value: textOf(info.email) },
+                    { label: 'Phone', value: phoneText(info.phone) },
+                    {
+                        label: 'Shipping address',
+                        value: addressLines.length > 0 && (
+                            <div>
+                                {addressLines.map((line, index) => (
+                                    <div key={`${line}-${index}`}>{line}</div>
+                                ))}
+                            </div>
+                        ),
+                    },
+                    { label: 'Prepaid', value: prepaid },
+                    { label: 'Payment', value: CHARGE_TEXT[result.chargeMode] },
+                    { label: 'Coupon', value: textOf(result.couponCode) },
+                    { label: 'Subtotal', value: Number.isFinite(discount) && discount > 0 ? money(result.subtotal) : undefined },
+                    { label: 'Discount', value: Number.isFinite(discount) && discount > 0 ? `-${fmt(discount)}` : undefined },
+                    { label: 'Total', value: money(result.total) },
+                    { label: 'Completed', value: result.success === true ? timeText(result.timestamp) : undefined },
+                ]}
+            />
+        </div>
+    );
+};
+
 // ============================================================
 // Block Definition
 // ============================================================
@@ -1659,6 +1732,7 @@ export const EmrCheckoutBlock: BlockDefinition = {
         if (!v.success) return 'Please complete checkout';
         return null;
     },
+    answerView: (props) => <EmrCheckoutAnswerView {...props} />,
     outputSchema: {
         type: 'object',
         properties: {
