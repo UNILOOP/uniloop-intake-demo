@@ -93,8 +93,7 @@ export const COPY_DEFAULTS = {
   preferredKeptMessage:
     'Your responses suggest a medication preference. Review the options below; your current selection has been kept.',
   preferredNoneMessage: '',
-  preferredUnavailableMessage:
-    'Medication recommendations are temporarily unavailable. You can still choose from the options below.',
+  preferredUnavailableMessage: '',
 
   planTitle: 'Choose a delivery plan',
   planSubtitle:
