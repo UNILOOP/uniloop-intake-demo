@@ -552,6 +552,8 @@ export interface PlanChoice {
   savings: number;
   savingsLabel: string;
   recommended: boolean;
+  // How many times an optional product's per-refill price is charged for this choice.
+  addOnUnits: number;
 }
 
 export const choiceKey = (variantId: string, billingOptionId: number | null) =>
@@ -708,6 +710,10 @@ export const planChoices = (
       recommended: hasDefault
         ? Boolean(choice.isDefault)
         : !prepaid && Boolean(choice.variant?.is_default),
+      // A prepaid bundle ships its variant's refill supplyCount times, so a 12-month bundle counts 12 months of add-ons.
+      addOnUnits:
+        Math.max(1, Number(choice.supplyCount ?? 1)) *
+        Math.max(1, Number(choice.variant?.default_dispense_bundle_size ?? 1)),
     };
   });
 };

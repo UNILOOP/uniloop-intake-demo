@@ -939,6 +939,8 @@ interface PlanChoice {
   savings: number;
   savingsLabel: string;
   recommended: boolean;
+  // How many times an optional product's per-refill price is charged for this choice.
+  addOnUnits: number;
 }
 
 const choiceKey = (variantId: string, billingOptionId: number | null) =>
@@ -1089,6 +1091,10 @@ const planChoices = (
       recommended: hasDefault
         ? Boolean(choice.isDefault)
         : !prepaid && Boolean(choice.variant?.is_default),
+      // A prepaid bundle ships its variant's refill supplyCount times, so a 12-month bundle counts 12 months of add-ons.
+      addOnUnits:
+        Math.max(1, Number(choice.supplyCount ?? 1)) *
+        Math.max(1, Number(choice.variant?.default_dispense_bundle_size ?? 1)),
     };
   });
 };
@@ -2272,10 +2278,10 @@ const SinglePageCheckoutRenderer = forwardRef<
   const quoteReady =
     !isPrepaid || (quoteIsLive(quote) && !quoteBusy && !quoteError);
   const variant = checkout?.selection?.variant;
-  const bundleSize = Math.max(
-    1,
-    Number(variant?.default_dispense_bundle_size ?? 1),
-  );
+  // Add-ons follow the chosen plan, not the selected variant: a prepaid bundle keeps the default variant selected.
+  const bundleSize =
+    selectedOption?.addOnUnits ??
+    Math.max(1, Number(variant?.default_dispense_bundle_size ?? 1));
   const customVariantPricing = variant?.price != null;
   const pricing = checkoutPricing(module, purchase);
   const contact = authToken ? patientContact(module) : null;
@@ -2990,9 +2996,13 @@ const SinglePageCheckoutRenderer = forwardRef<
           const phases = getActivePhases(drug);
           const price = module.getDrugPrice(drug) * bundleSize;
           const priceText = price > 0 ? formatMoney(price, true) : '';
-          const quantityText = [drug.quantity, drug.quantity_unit]
-            .filter((part) => part != null && part !== '')
-            .join(' ');
+          // A unit without a count ("tablets") says nothing, so the price then sits under the name instead.
+          const quantityText =
+            drug.quantity != null && drug.quantity !== ''
+              ? [drug.quantity, drug.quantity_unit]
+                  .filter((part) => part != null && part !== '')
+                  .join(' ')
+              : '';
           const description = drug.merchant_drug?.description;
           return (
             <div

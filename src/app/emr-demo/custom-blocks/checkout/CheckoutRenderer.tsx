@@ -1227,10 +1227,10 @@ export const CheckoutRenderer = forwardRef<
   const quoteReady =
     !isPrepaid || (quoteIsLive(quote) && !quoteBusy && !quoteError);
   const variant = checkout?.selection?.variant;
-  const bundleSize = Math.max(
-    1,
-    Number(variant?.default_dispense_bundle_size ?? 1),
-  );
+  // Add-ons follow the chosen plan, not the selected variant: a prepaid bundle keeps the default variant selected.
+  const bundleSize =
+    selectedOption?.addOnUnits ??
+    Math.max(1, Number(variant?.default_dispense_bundle_size ?? 1));
   const customVariantPricing = variant?.price != null;
   const pricing = checkoutPricing(module, purchase);
   const contact = authToken ? patientContact(module) : null;
@@ -1970,9 +1970,13 @@ export const CheckoutRenderer = forwardRef<
           const phases = getActivePhases(drug);
           const price = module.getDrugPrice(drug) * bundleSize;
           const priceText = price > 0 ? formatMoney(price, true) : '';
-          const quantityText = [drug.quantity, drug.quantity_unit]
-            .filter((part) => part != null && part !== '')
-            .join(' ');
+          // A unit without a count ("tablets") says nothing, so the price then sits under the name instead.
+          const quantityText =
+            drug.quantity != null && drug.quantity !== ''
+              ? [drug.quantity, drug.quantity_unit]
+                  .filter((part) => part != null && part !== '')
+                  .join(' ')
+              : '';
           const description = drug.merchant_drug?.description;
           return (
             <div
