@@ -1,7 +1,22 @@
 import type { BlockDefinition } from '@/packages/survey-form-package/src/types';
 import { EmrCheckoutBlock } from './EmrCheckoutBlock';
-import { UniloopCheckoutBlock } from './UniloopCheckoutBlock';
 import EmrDrugSelectionBlock from './EmrDrugSelectionBlock';
+import { SinglePageCheckoutBlock } from './SinglePageCheckoutBlock';
+import { UniloopCheckoutBlock } from './UniloopCheckoutBlock';
+import { CheckoutSelectionBlock } from './CheckoutSelectionBlock';
+import { CheckoutShippingBlock } from './CheckoutShippingBlock';
+import { CheckoutPaymentBlock } from './CheckoutPaymentBlock';
+import { AcknowledgementsBlock } from './AcknowledgementsBlock';
+import { MedicationSearchBlock } from './MedicationSearchBlock';
+import { YesNoAnswerBlock } from './YesNoAnswerBlock';
+import { OptionCardsBlock } from './OptionCardsBlock';
+import { NotAFitBlock } from './NotAFitBlock';
+import { TestimonialBlock } from './TestimonialBlock';
+import { StateAvailabilityBlock } from './StateAvailabilityBlock';
+import { MedicalReviewBlock } from './MedicalReviewBlock';
+import { PlanSummaryBlock } from './PlanSummaryBlock';
+import { QuestionGroupBlock } from './QuestionGroupBlock';
+import { UpsellOfferBlock } from './UpsellOfferBlock';
 import { VerificationInformationBlock } from './authv2/VerificationBlock';
 import { NameInformationBlock } from './authv2/NameInformationBlock';
 import { DOBInformationBlock } from './authv2/DOBInformation';
@@ -24,7 +39,22 @@ export const EmrCustomBlocks: BlockDefinition[] = [
   VitalsInformationBlock,
   EmrDrugSelectionBlock,
   EmrCheckoutBlock,
+  SinglePageCheckoutBlock,
   UniloopCheckoutBlock,
+  CheckoutSelectionBlock,
+  CheckoutShippingBlock,
+  CheckoutPaymentBlock,
+  AcknowledgementsBlock,
+  MedicationSearchBlock,
+  YesNoAnswerBlock,
+  OptionCardsBlock,
+  NotAFitBlock,
+  TestimonialBlock,
+  StateAvailabilityBlock,
+  MedicalReviewBlock,
+  PlanSummaryBlock,
+  QuestionGroupBlock,
+  UpsellOfferBlock,
 ];
 
 export const getSystemBlocks = () => {
@@ -37,7 +67,22 @@ export const getSystemBlocks = () => {
     VitalsInformationBlock,
     EmrDrugSelectionBlock,
     EmrCheckoutBlock,
+    SinglePageCheckoutBlock,
     UniloopCheckoutBlock,
+    CheckoutSelectionBlock,
+    CheckoutShippingBlock,
+    CheckoutPaymentBlock,
+    AcknowledgementsBlock,
+    MedicationSearchBlock,
+    YesNoAnswerBlock,
+    OptionCardsBlock,
+    NotAFitBlock,
+    TestimonialBlock,
+    StateAvailabilityBlock,
+    MedicalReviewBlock,
+    PlanSummaryBlock,
+    QuestionGroupBlock,
+    UpsellOfferBlock,
   ];
   blockList.forEach((block) => {
     registerBlock(block);
