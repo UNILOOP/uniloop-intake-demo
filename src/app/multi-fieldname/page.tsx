@@ -11,6 +11,7 @@ import { themes } from '@/packages/survey-form-package/src/themes';
 import { StandardBlocks, StandardNodes } from '@/packages/survey-form-package/src/builder';
 import { registerBlock } from '@/packages/survey-form-package/src/blocks';
 import { HeadacheCheckBlock, HeadachePresetBlock } from './blocks';
+import type { NodeData } from '@/packages/survey-form-package/src/types';
 
 const SurveyForm = dynamic(
   () => import('@/packages/survey-form-package/src/renderer/SurveyForm').then((mod) => mod.SurveyForm),
@@ -31,7 +32,7 @@ const end = (uuid: string, title: string) => ({
 
 // Step 1 asks both questions; its keys route to different steps and have their own rules.
 // Step 2 sets both keys with one pick and moves on by itself.
-const rootNode = {
+const rootNode: NodeData = {
   type: 'section',
   uuid: 'mf-root',
   name: 'Multi field name check',

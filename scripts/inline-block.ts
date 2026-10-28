@@ -196,7 +196,8 @@ export const inlineBlock = (entryPath: string): string => {
   return `${header}\n${importLines.join('\n')}\n\n${ordered.map((module) => module.body).join('\n\n')}\n`;
 };
 
-if (import.meta.main) {
+// Bun sets import.meta.main when the file is run directly; Next's DOM typings don't declare it.
+if ((import.meta as ImportMeta & { main?: boolean }).main) {
   const [entry, out] = process.argv.slice(2);
   if (!entry || !out)
     fail('usage: bun scripts/inline-block.ts <entry.tsx> <out.tsx>');

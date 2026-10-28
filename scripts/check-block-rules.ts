@@ -20,7 +20,8 @@ export const blockRuleProblems = (text: string): string[] => {
   return problems;
 };
 
-if (import.meta.main) {
+// Bun sets import.meta.main when the file is run directly; Next's DOM typings don't declare it.
+if ((import.meta as ImportMeta & { main?: boolean }).main) {
   const files = process.argv.slice(2);
   let failed = false;
   for (const file of files) {

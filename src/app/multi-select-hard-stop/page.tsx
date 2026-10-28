@@ -6,6 +6,7 @@ import React, { useState } from 'react';
 import dynamic from 'next/dynamic';
 import { Loader2 } from 'lucide-react';
 import { themes } from '@/packages/survey-form-package/src/themes';
+import type { NodeData } from '@/packages/survey-form-package/src/types';
 
 const SurveyForm = dynamic(
   () => import('@/packages/survey-form-package/src/renderer/SurveyForm').then((mod) => mod.SurveyForm),
@@ -18,7 +19,7 @@ const option = (id: string, label: string) => ({ id: `ms-${id}`, label, value: l
 
 // The diagnosis question as the GLP-1 intake sets it up: one "Equals" rule per disqualifying option,
 // and a navigation rule that sends Cancer to a follow-up question.
-const rootNode = {
+const rootNode: NodeData = {
   type: 'section',
   uuid: 'ms-root',
   name: 'Multi select hard stop check',
